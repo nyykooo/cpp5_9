@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:21:45 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/22 16:53:44 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:00:22 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,20 @@ int				Form::getGradeToSign(void) const { return _gradeToSign; }
 int				Form::getGradeToExecute(void) const { return _gradeToExecute; }
 
 void			Form::beSigned(Bureaucrat b) {
-	if (b.getGrade() > _gradeToSign)
+	try
 	{
-		std::cout << b.getName() << " couldn’t sign " << _name << " because ";
-		throw Form::GradeTooLowException();
+		if (b.getGrade() > _gradeToSign)
+		{
+			std::cout << b.getName() << " couldn’t sign " << _name << " because ";
+			throw Form::GradeTooLowException();
+		}
+		b.signForm();
+		_signed = true;
 	}
-	b.signForm();
-	_signed = true;
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << std::endl;
+	}
 }
 
 Form::GradeTooHighException::GradeTooHighException() {}

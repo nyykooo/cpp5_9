@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/22 16:56:22 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/01/24 16:00:42 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,7 @@ int main(void)
 
 		std::cout << *bureaucrat;
 		std::cout << *form;
-		try
-		{
-			form->beSigned(*bureaucrat);
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
+		form->beSigned(*bureaucrat);
 	}
 	{
 		Bureaucrat *bureaucrat = new Bureaucrat("Nico", 101);
@@ -35,14 +28,7 @@ int main(void)
 
 		std::cout << *bureaucrat;
 		std::cout << *form;
-		try
-		{
-			form->beSigned(*bureaucrat);
-		}
-		catch(const std::exception& e)
-		{
-			std::cerr << e.what() << '\n';
-		}
+		form->beSigned(*bureaucrat);
 	}
 	return 0;
 }
