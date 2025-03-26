@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/24 20:33:23 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/03/24 20:44:04 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/03/26 18:01:58 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,39 @@ class RPN {
 		std::string	getInput() const;
 		int			getResult() const;
 
+		// MEMBER FUNCTIONS
+		void	checkInput(std::string input) const;
+		void	calculateRPN(std::string input);
+		void	performAddition();
+		void	performSubtraction();
+		void	performMultiplication();
+		void	performDivision();
+
+		// EXCEPTIONS
+		class InvalidOperandChar : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
 		
+		class InvalidAmountOfOperands : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+
+		class InvalidOperandOrder : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+
+		class InvalidAmountEnd : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
+
+		class InvalidNumber : public std::exception {
+			public:
+				virtual const char* what() const throw();
+		};
 };
 
 #endif
