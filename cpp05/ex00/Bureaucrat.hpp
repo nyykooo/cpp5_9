@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:58:20 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/01 19:48:19 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:05:35 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ class Bureaucrat
 		};
 };
 
-std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat &fixed);
-
+std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat &bureaucrat);
 
 #endif

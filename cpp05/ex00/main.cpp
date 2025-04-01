@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/01 20:15:43 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:07:53 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,21 @@ int main(void)
 		{
 			std::cout << BLK_RED << e.what() << RESET << std::endl;
 		}
+	}
+	{
+		std::cout << BLD_GREEN << "\n\nTESTING OUTPUT OVERLOAD" << RESET << std::endl;
+
+
+		//std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat &fixed);
+		/* std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat &bureaucrat)
+		{
+			outputStream << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
+			return outputStream;	
+		} */
+
+
+		Bureaucrat *bureaucrat = new Bureaucrat("Nico", 99);
+		std::cout << *bureaucrat;
 	}
 	return 0;
 }

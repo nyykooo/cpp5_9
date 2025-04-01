@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:42:15 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/01 19:50:24 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:08:59 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
     return "Grade too low!";
 }
 
-std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat bureaucrat)
+std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat &bureaucrat)
 {
-	outputStream << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
+	outputStream << BLD_BLUE << bureaucrat.getName() << UND_WHITE << ", bureaucrat grade " << RESET << BLD_MAGENTA << bureaucrat.getGrade() << RESET << std::endl;
 	return (outputStream);	
 }

@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 19:44:14 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/01 19:48:04 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/01 21:07:10 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define UND_BLUE "\033[4;34m"
 # define UND_MAGENTA "\033[4;35m"
 # define UND_CYAN "\033[4;36m"
+# define UND_WHITE "\033[4;37m"
 
 // ### BOLD COLOR ###
 # define BLD_RED "\033[1;31m"
@@ -39,6 +40,7 @@
 # define BLD_BLUE "\033[1;34m"
 # define BLD_MAGENTA "\033[1;35m"
 # define BLD_CYAN "\033[1;36m"
+# define BLD_WHITE "\033[1;37m"
 
 // ### BLINK COLOR ###
 # define BLK_RED "\033[5;31m"
@@ -47,5 +49,6 @@
 # define BLK_BLUE "\033[5;34m"
 # define BLK_MAGENTA "\033[5;35m"
 # define BLK_CYAN "\033[5;36m"
+# define BLK_WHITE "\033[5;37m"
 
 #endif
