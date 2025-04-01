@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:42:15 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/22 14:07:42 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/01 19:50:24 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void Bureaucrat::incrementGrade(void)
 	if (_grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
 	_grade--;
-	std::cout << _name << " grade incremented to " << _grade << std::endl;
+	std::cout << BLD_BLUE << _name << RESET << " grade incremented to " << BLD_GREEN << _grade << RESET << std::endl;
 	return ;
 }
 
@@ -68,7 +68,7 @@ void Bureaucrat::decrementGrade(void)
 	if (_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
 	_grade++;
-	std::cout << _name << " grade decremented to " << _grade << std::endl;
+	std::cout << BLD_BLUE << _name << RESET << " grade decremented to " << BLD_RED << _grade << RESET << std::endl;
 	return ;
 }
 
