@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 13:42:15 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/22 16:55:48 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:21:25 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void Bureaucrat::incrementGrade(void)
 	if (_grade - 1 < 1)
 		throw Bureaucrat::GradeTooHighException();
 	_grade--;
-	std::cout << _name << " grade incremented to " << _grade << std::endl;
+	std::cout << BLD_BLUE << _name << RESET << " grade incremented to " << BLD_GREEN << _grade << RESET << std::endl;
 	return ;
 }
 
@@ -68,13 +68,21 @@ void Bureaucrat::decrementGrade(void)
 	if (_grade + 1 > 150)
 		throw Bureaucrat::GradeTooLowException();
 	_grade++;
-	std::cout << _name << " grade decremented to " << _grade << std::endl;
+	std::cout << BLD_BLUE << _name << RESET << " grade decremented to " << BLD_RED << _grade << RESET << std::endl;
 	return ;
 }
 
-void Bureaucrat::signForm(void)
+void Bureaucrat::signForm(Form &form)
 {
-	std::cout << _name << " signs the form." << std::endl;
+	try
+	{
+		form.beSigned(*this);
+		std::cout << BLD_BLUE << this->getName() << RESET << " signs " << BLD_YELLOW << form.getName() << RESET << std::endl;
+	}
+	catch (std::exception &e)
+	{
+		std::cout << BLK_RED << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << RESET << std::endl;
+	}
 	return ;
 }
 
@@ -96,6 +104,6 @@ const char* Bureaucrat::GradeTooLowException::what() const throw() {
 
 std::ostream& operator<<(std::ostream& outputStream, const Bureaucrat &bureaucrat)
 {
-	outputStream << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade() << std::endl;
+	outputStream << BLD_BLUE << bureaucrat.getName() << UND_WHITE << ", bureaucrat grade " << RESET << BLD_MAGENTA << bureaucrat.getGrade() << RESET << std::endl;
 	return (outputStream);	
 }

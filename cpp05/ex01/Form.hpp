@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 14:12:40 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/22 15:21:15 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:10:05 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <iostream>
 # include <string>
 # include "Bureaucrat.hpp"
+
+class Bureaucrat;
 
 class Form {
 	private:

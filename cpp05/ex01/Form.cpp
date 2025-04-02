@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/22 15:21:45 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 16:00:22 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:17:10 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,11 @@ int				Form::getGradeToSign(void) const { return _gradeToSign; }
 int				Form::getGradeToExecute(void) const { return _gradeToExecute; }
 
 void			Form::beSigned(Bureaucrat b) {
-	try
+	if (b.getGrade() > _gradeToSign)
 	{
-		if (b.getGrade() > _gradeToSign)
-		{
-			std::cout << b.getName() << " couldn’t sign " << _name << " because ";
-			throw Form::GradeTooLowException();
-		}
-		b.signForm();
-		_signed = true;
+		throw Form::GradeTooLowException();
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	_signed = true;
 }
 
 Form::GradeTooHighException::GradeTooHighException() {}
@@ -74,11 +65,11 @@ const char* Form::GradeTooLowException::what() const throw() {
 }
 
 std::ostream& operator<<(std::ostream& outputStream, const Form &form) {
-	outputStream << "Form: " << form.getName() << " is ";
+	outputStream << "Form: " << BLD_YELLOW << form.getName() << RESET << " is ";
 	if (form.getSigned())
-		outputStream << "signed";
+		outputStream << BLD_GREEN << "signed";
 	else
-		outputStream << "not signed";
-	outputStream << " and requires a grade of " << form.getGradeToSign() << " to sign and a grade of " << form.getGradeToExecute() << " to execute." << std::endl;
+		outputStream << BLD_RED << "not signed";
+	outputStream << RESET << " and requires a grade of " << UND_GREEN << form.getGradeToSign() << RESET << " to sign and a grade of " << UND_CYAN << form.getGradeToExecute() << RESET << " to execute." << std::endl;
 	return outputStream;
 }
