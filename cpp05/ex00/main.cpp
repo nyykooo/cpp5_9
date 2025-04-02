@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/01 21:07:53 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/02 19:38:51 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int main(void)
 		{
 			std::cout << BLK_RED << e.what() << RESET << std::endl;
 		}
+		delete dumbo;
 	}
 	{
 		std::cout << BLD_GREEN << "\n\nTESTING OUTPUT OVERLOAD" << RESET << std::endl;
@@ -117,6 +118,7 @@ int main(void)
 
 		Bureaucrat *bureaucrat = new Bureaucrat("Nico", 99);
 		std::cout << *bureaucrat;
+		delete bureaucrat;
 	}
 	return 0;
 }
