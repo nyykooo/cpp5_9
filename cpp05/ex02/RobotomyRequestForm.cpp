@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:34:43 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 15:39:32 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:35:55 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,16 @@ std::string RobotomyRequestForm::getTarget() const
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
-	static int exec = 0;
+	struct timeval time;
+
+	gettimeofday(&time, NULL);
+	srand(time.tv_usec);
+
+	bool exec = rand() % 2;
+	
 	AForm::execute(executor);
 	std::cout << "Pzz PzzzzzZZZZZZz Pz Pzzzz" << std::endl;
-	if (exec++ % 2)
+	if (exec)
 		std::cout << "INFORMING: " << _target << " has been robotomized successfully." << std::endl;
 	else
 		std::cout << "INFORMING: the robotomy of " << _target << " has failed." << std::endl;

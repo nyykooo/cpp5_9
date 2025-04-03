@@ -15,7 +15,9 @@
 
 # include <iostream>
 # include <string>
+#include <sys/time.h>
 # include "Bureaucrat.hpp"
+# include "output.hpp"
 
 class Bureaucrat;
 

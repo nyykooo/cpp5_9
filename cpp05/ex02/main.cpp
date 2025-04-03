@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 15:39:51 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/03 20:37:09 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,62 +18,145 @@
 int main(void)
 {
 	{
-		std::cout << "### CREATING BUREAUCRATS AND FORMS ###" << std::endl;
-		Bureaucrat *b1 = new Bureaucrat("Nico", 1);
-		Bureaucrat *b2 = new Bureaucrat("Campbell", 45);
-		Bureaucrat *b3 = new Bureaucrat("PI", 150);
-		AForm *f1 = new ShrubberyCreationForm("Tree");
-		AForm *f2 = new RobotomyRequestForm("Robot");
-		AForm *f3 = new PresidentialPardonForm("Criminal");
+		std::cout << BLD_GREEN << "\n\n### TESTING SHRUBBERRYCREATIONFORM ###" << RESET << std::endl;
+		Bureaucrat *b1 = NULL;
+		AForm *f1 = NULL;
 
-		std::cout << std::endl << "### BUREAUCRATS ###" << std::endl;
-		std::cout << "Bureaucrat 1: " << *b1;
-		std::cout << "Bureaucrat 2: " << *b2;
-		std::cout << "Bureaucrat 3: " << *b3;
+		try
+		{
+			b1 = new Bureaucrat("Nico", 1);
+			f1 = new ShrubberyCreationForm("Tree");
 
-		std::cout << std::endl << "### FORMS ###" << std::endl;
-		std::cout << "ShrubberyCreationForm: " << *f1;
-		std::cout << "RobotomyRequestForm: " << *f2;
-		std::cout << "PresidentialPardonForm: " << *f3;
+			std::cout << *b1;
+			std::cout << *f1;
+			
+			std::cout << BLD_GREEN << "\n### SIGNING SCF ###" << RESET << std::endl;
+			b1->signAForm(*f1);
 		
-		std::cout << std::endl << "### SIGNING FORMS ###" << std::endl;
-		std::cout << "Bureaucrat 1:" << std::endl;
-		f1->beSigned(*b1);
-		f2->beSigned(*b1);
-		f3->beSigned(*b1);
-		
-		std::cout << "Bureaucrat 2:" << std::endl;
-		f1->beSigned(*b2);
-		f2->beSigned(*b2);
-		f3->beSigned(*b2);
-		
-		std::cout << "Bureaucrat 3:" << std::endl;
-		f1->beSigned(*b3);
-		f2->beSigned(*b3);
-		f3->beSigned(*b3);
-	
-		std::cout << std::endl << "### EXECUTING FORMS ###" << std::endl;
-		std::cout << "Bureaucrat 1:" << std::endl;
-		b1->executeForm(*f1);
-		b1->executeForm(*f2);
-		b1->executeForm(*f3);
-		
-		std::cout << "Bureaucrat 2:" << std::endl;
-		b2->executeForm(*f1);
-		b2->executeForm(*f2);
-		b2->executeForm(*f3);
-		
-		std::cout << "Bureaucrat 3:" << std::endl;
-		b3->executeForm(*f1);
-		b3->executeForm(*f2);
-		b3->executeForm(*f3);
+			std::cout << BLD_GREEN << "\n### EXECUTING SCF ###" << RESET << std::endl;
+			b1->executeForm(*f1);
+			
+		} catch (std::exception &e)
+		{
+			std::cout << BLK_RED << e.what() << RESET << std::endl;
+		}
 
 		delete b1;
-		delete b2;
-		delete b3;
 		delete f1;
-		delete f2;
-		delete f3;
+	}
+	{
+		std::cout << BLD_GREEN << "\n\n### TESTING PRESIDENTIALPARDONFORM ###" << RESET << std::endl;
+		Bureaucrat *b1 = NULL;
+		AForm *f1 = NULL;
+
+		try
+		{
+			b1 = new Bureaucrat("Nico", 1);
+			f1 = new PresidentialPardonForm("Xorbelbeeb Dofaz");
+
+			std::cout << *b1;
+			std::cout << *f1;
+			
+			std::cout << BLD_GREEN << "\n### SIGNING PPF ###" << RESET << std::endl;
+			b1->signAForm(*f1);
+		
+			std::cout << BLD_GREEN << "\n### EXECUTING PPF ###" << RESET << std::endl;
+			b1->executeForm(*f1);
+			
+		} catch (std::exception &e)
+		{
+			std::cout << BLK_RED << e.what() << RESET << std::endl;
+		}
+
+		delete b1;
+		delete f1;
+	}
+	{
+		std::cout << BLD_GREEN << "\n\n### TESTING ROBOTOMYREQUESTFORM ###" << RESET << std::endl;
+		Bureaucrat *b1 = NULL;
+		AForm *f1 = NULL;
+
+		try
+		{
+			b1 = new Bureaucrat("Nico", 1);
+			f1 = new RobotomyRequestForm("C3P0");
+
+			std::cout << *b1;
+			std::cout << *f1;
+			
+			std::cout << BLD_GREEN << "\n### SIGNING RRF ###" << RESET << std::endl;
+			b1->signAForm(*f1);
+		
+			std::cout << BLD_GREEN << "\n### EXECUTING RRF ###" << RESET << std::endl;
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			b1->executeForm(*f1);
+			
+		} catch (std::exception &e)
+		{
+			std::cout << BLK_RED << e.what() << RESET << std::endl;
+		}
+
+		delete b1;
+		delete f1;
+	}
+	{
+		std::cout << BLD_GREEN << "\n\n### TESTING EXECUTE WITHOUT SIGNING ###" << RESET << std::endl;
+		Bureaucrat *b1 = NULL;
+		AForm *f1 = NULL;
+
+		try
+		{
+			b1 = new Bureaucrat("Nico", 1);
+			f1 = new ShrubberyCreationForm("Tree");
+
+			std::cout << *b1;
+			std::cout << *f1;
+		
+			std::cout << BLD_GREEN << "\n### EXECUTING SCF ###" << RESET << std::endl;
+			b1->executeForm(*f1);
+			
+		} catch (std::exception &e)
+		{
+			std::cout << BLK_RED << e.what() << RESET << std::endl;
+		}
+
+		delete b1;
+		delete f1;
+	}
+	{
+		std::cout << BLD_GREEN << "\n\n### TESTING EXECUTE WITHOUT GRADE ###" << RESET << std::endl;
+		Bureaucrat *b1 = NULL;
+		AForm *f1 = NULL;
+
+		try
+		{
+			b1 = new Bureaucrat("Nico", 138);
+			f1 = new ShrubberyCreationForm("Tree");
+
+			std::cout << *b1;
+			std::cout << *f1;
+
+			std::cout << BLD_GREEN << "\n### SIGNING ###" << RESET << std::endl;
+			b1->signAForm(*f1);
+		
+			std::cout << BLD_GREEN << "\n### EXECUTING ###" << RESET << std::endl;
+			b1->executeForm(*f1);
+			
+		} catch (std::exception &e)
+		{
+			std::cout << BLK_RED << e.what() << RESET << std::endl;
+		}
+
+		delete b1;
+		delete f1;
 	}
 	return 0;
 }
