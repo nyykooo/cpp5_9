@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:42 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 16:22:48 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 23:10:48 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,25 @@ AForm *Intern::makeForm(std::string formName, std::string target)
 	for (int i = 0; i < 3; i++)
 	{
 		if (formName == formNames[i])
+		{
+			std::cout << BLD_MAGENTA << "Intern " << RESET << "creates " << BLD_YELLOW << formName << std::endl;
 			return (formCreatorsFunctions[i](target));
+		}
 	}
 
-	std::cerr << "Form " << formName << " not found." << std::endl;
+	throw Intern::UnknownFormException();
 	return (NULL);
 }
 
+Intern::UnknownFormException::UnknownFormException()
+{
+}
+
+Intern::UnknownFormException::~UnknownFormException() throw()
+{
+}
+
+const char* Intern::UnknownFormException::what() const throw()
+{
+	return ("Intern doesn't know this form type yet");
+}

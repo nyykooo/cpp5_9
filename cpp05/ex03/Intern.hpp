@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/24 16:02:44 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 16:20:06 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 23:08:46 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ class Intern
 		Intern & operator=(Intern const & src);
 
 		AForm *makeForm(std::string formName, std::string target);
+		class UnknownFormException : public std::exception
+		{
+			public:
+				UnknownFormException();
+				virtual ~UnknownFormException() throw();
+				virtual const char* what() const throw();
+		};
 };
 
 #endif

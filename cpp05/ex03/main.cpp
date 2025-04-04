@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 16:21:48 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 23:22:02 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,46 @@
 int main(void)
 {
 	{
-		std::cout << std::endl;
+		Intern *intern;
+		Bureaucrat *bureaucrat;
+		AForm *form;
 
-		std::cout << "\033[34mConstructing\033[0m" << std::endl;
-		Bureaucrat *a = new Bureaucrat("Emperor", 1);
-		Intern *z = new Intern();
-		AForm *b = z->makeForm("RobotomyRequest", "Bender");
-		AForm *c = z->makeForm("ShrubberyCreation", "Cristmas");
-		// Form *c = new ShrubberyCreationForm("christmas");
-		std::cout << std::endl;
+		try
+		{
+			std::cout << BLD_GREEN << "\n\n### TESTING INTERN CREATING FORM ###" << RESET << std::endl;
+			bureaucrat = new Bureaucrat("Nico", 1);
+			intern = new Intern();
 
-		std::cout << "\033[34mTesting\033[0m" << std::endl;
-		std::cout << *a;
-		std::cout << *b;
-		std::cout << *c;
-		std::cout << std::endl;
+			form = intern->makeForm("RobotomyRequest", "PIPIPIPOPOPO");
+			bureaucrat->signAForm(*form);
+			bureaucrat->executeForm(*form);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << e.what() << '\n';
+		}
+		
+	}
+	{
+		Intern *intern;
+		Bureaucrat *bureaucrat;
+		AForm *form;
 
-		b->beSigned(*a);
-		std::cout << std::endl;
-		std::cout << *b;
-		std::cout << *c;
-		std::cout << std::endl;
+		try
+		{
+			std::cout << BLD_GREEN << "\n\n### TESTING INTERN FAILING TO CREATE A FORM ###" << RESET << std::endl;
+			bureaucrat = new Bureaucrat("Nico", 1);
+			intern = new Intern();
 
-		for (int i= 0; i < 10; i++)
-			b->execute(*a);
-		a->executeForm(*c);
-		// c->execute(*a);
-		std::cout << std::endl;
-
-		std::cout << "\033[34mDeconstructing\033[0m" << std::endl;
-		delete a;
-		delete b;
-		delete c;
-		delete z;
-		std::cout << std::endl;
+			form = intern->makeForm("PipipiPopopoForm", "HeyThere");
+			bureaucrat->signAForm(*form);
+			bureaucrat->executeForm(*form);
+		}
+		catch(const std::exception& e)
+		{
+			std::cerr << BLK_RED << e.what() << RESET << std::endl;
+		}
+		
 	}
 	return 0;
 }

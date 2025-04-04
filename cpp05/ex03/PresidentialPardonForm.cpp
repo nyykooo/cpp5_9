@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:26:40 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/23 18:28:46 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 23:18:44 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 PresidentialPardonForm::PresidentialPardonForm(std::string target) : AForm("PresidentialPardonForm", false, 25, 5), _target(target)
 {
-	std::cout << "PresidentialPardonForm created!" << std::endl;
+	std::cout << UND_CYAN << "PresidentialPardonForm created!" << RESET << std::endl;
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const PresidentialPardonForm& src) : AForm(src), _target(src._target)
@@ -42,5 +42,5 @@ std::string PresidentialPardonForm::getTarget() const
 void PresidentialPardonForm::execute(const Bureaucrat& executor) const
 {
 	AForm::execute(executor);
-	std::cout << "INFORMING: " << _target << " has been pardoned by Zafod Beeblebrox." << std::endl;
+	std::cout << UND_RED << "INFORMING:" << RESET << " " << BLD_YELLOW << _target << RESET << " has been pardoned by Zafod Beeblebrox." << std::endl;
 }

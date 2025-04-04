@@ -41,21 +41,22 @@ int				AForm::getGradeToSign(void) const { return _gradeToSign; }
 int				AForm::getGradeToExecute(void) const { return _gradeToExecute; }
 
 void			AForm::beSigned(Bureaucrat b) {
-	try
+	if (b.getGrade() > _gradeToSign)
 	{
-		if (b.getGrade() <= _gradeToSign)
-		{
-			b.signAForm();
-			_signed = true;
-			// std::cout << b.getName() << " couldn’t sign " << _name << " because ";
-		}
-		else
-			throw AForm::GradeTooLowException();
+		throw AForm::GradeTooLowException();
 	}
-	catch(const std::exception& e)
-	{
-		std::cerr << e.what() << std::endl;
-	}
+	_signed = true;
+}
+
+void AForm::execute(Bureaucrat const & executor) const
+{
+	if (!_signed)
+		throw AForm::FormNotSignedException();
+	else if (executor.getGrade() > _gradeToExecute)
+		throw AForm::GradeTooLowException();
+	else
+		std::cout << BLD_BLUE << executor.getName() << RESET << " executes " << BLD_YELLOW << _name << std::endl;
+	return ;
 }
 
 AForm::GradeTooHighException::GradeTooHighException() {}
@@ -82,23 +83,12 @@ const char* AForm::FormNotSignedException::what() const throw() {
 	return "the form is not signed!";
 }
 
-std::ostream& operator<<(std::ostream& outputStream, const AForm &AForm) {
-	outputStream << "AForm: " << AForm.getName() << " is ";
-	if (AForm.getSigned())
-		outputStream << "signed";
+std::ostream& operator<<(std::ostream& outputStream, const AForm &form) {
+	outputStream << "Form: " << BLD_YELLOW << form.getName() << RESET << " is ";
+	if (form.getSigned())
+		outputStream << BLD_GREEN << "signed";
 	else
-		outputStream << "not signed";
-	outputStream << " and requires a grade of " << AForm.getGradeToSign() << " to sign and a grade of " << AForm.getGradeToExecute() << " to execute." << std::endl;
+		outputStream << BLD_RED << "not signed";
+	outputStream << RESET << " and requires a grade of " << UND_GREEN << form.getGradeToSign() << RESET << " to sign and a grade of " << UND_CYAN << form.getGradeToExecute() << RESET << " to execute." << std::endl;
 	return outputStream;
-}
-
-void AForm::execute(Bureaucrat const & executor) const
-{
-	if (!_signed)
-		throw AForm::FormNotSignedException();
-	else if (executor.getGrade() > _gradeToExecute)
-		throw AForm::GradeTooLowException();
-	else
-		std::cout << executor.getName() << " executes " << _name << std::endl;
-	return ;
 }
