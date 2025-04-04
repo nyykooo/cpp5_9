@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:38:32 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/01/24 15:57:19 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 23:22:17 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 ShrubberyCreationForm::ShrubberyCreationForm(std::string target) : AForm("ShrubberyCreationForm", false, 145, 137), _target(target)
 {
-	std::cout << "ShrubberyCreationForm created!" << std::endl;
+	std::cout << UND_CYAN << "ShrubberyCreationForm created!" << RESET << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& src) : AForm(src), _target(src._target)

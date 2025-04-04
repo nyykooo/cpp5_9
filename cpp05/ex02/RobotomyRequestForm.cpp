@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:34:43 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/04 22:22:55 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 23:20:47 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 RobotomyRequestForm::RobotomyRequestForm(std::string target) : AForm("RobotomyRequestForm", false, 72, 45), _target(target)
 {
-	std::cout << "RobotomyRequestForm created!" << std::endl;
+	std::cout << UND_CYAN << "RobotomyRequestForm created!" << RESET << std::endl;
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const RobotomyRequestForm& src) : AForm(src), _target(src._target)
@@ -48,7 +48,7 @@ void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 	AForm::execute(executor);
 	std::cout << "Pzz PzzzzzZZZZZZz Pz Pzzzz" << std::endl;
 	if (exec)
-		std::cout << "INFORMING: " << _target << " has been robotomized successfully." << std::endl;
+		std::cout << UND_RED << "INFORMING:" << RESET << " " << BLD_YELLOW << _target << RESET << " has been robotomized successfully." << std::endl;
 	else
-		std::cout << "INFORMING: the robotomy of " << _target << " has failed." << std::endl;
+		std::cout << UND_RED << "INFORMING:" << RESET << " the robotomy of " << BLD_YELLOW << _target << RESET << " has failed." << std::endl;
 }
