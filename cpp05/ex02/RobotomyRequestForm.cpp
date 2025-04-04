@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/23 16:34:43 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/03 20:35:55 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/04 22:22:55 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,9 @@ std::string RobotomyRequestForm::getTarget() const
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
-	struct timeval time;
 
-	gettimeofday(&time, NULL);
-	srand(time.tv_usec);
-
-	bool exec = rand() % 2;
+	std::srand(std::clock());
+	int exec = std::rand() % 2;
 	
 	AForm::execute(executor);
 	std::cout << "Pzz PzzzzzZZZZZZz Pz Pzzzz" << std::endl;

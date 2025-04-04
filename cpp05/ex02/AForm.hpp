@@ -15,7 +15,8 @@
 
 # include <iostream>
 # include <string>
-#include <sys/time.h>
+# include <ctime>
+//# include <sys/time.h>
 # include "Bureaucrat.hpp"
 # include "output.hpp"
 
