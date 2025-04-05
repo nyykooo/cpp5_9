@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 11:03:37 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/03 20:57:18 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/05 18:51:46 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ ScalarConverter::~ScalarConverter(){
 // static is_char
 static void is_char(char c)
 {
-	std::cout << "char: " << c << std::endl;
-	std::cout << "int: " << static_cast<int>(c) << std::endl;
-	std::cout << "float: " << static_cast<float>(c) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(c) << ".0" << std::endl;
+	std::cout << BLD_BLUE << "char: " << RESET << c << std::endl;
+	std::cout << BLD_CYAN << "int: " << RESET << static_cast<int>(c) << std::endl;
+	std::cout << BLD_MAGENTA << "float: " << RESET << static_cast<float>(c) << ".0f" << std::endl;
+	std::cout << BLD_YELLOW << "double: " << RESET << static_cast<double>(c) << ".0" << std::endl;
 }
 
 // static is_int
@@ -46,63 +46,63 @@ static void is_int(long nb)
 {
 	if (nb < std::numeric_limits<int>::min() || nb > std::numeric_limits<int>::max())
 	{
-		std::cerr << "INT OVERFLOR OR UNDERFLOW DETECTED!" << std::endl;
+		std::cout << BLK_RED << "INT OVERFLOR OR UNDERFLOW DETECTED!" << RESET << std::endl;
 		return ;
 	}
 	if (nb < 0 || nb > 127 || !std::isprint(nb))
-		std::cout << "char: Non displayable" << std::endl;
+		std::cout << BLD_BLUE <<  "char: " << RESET << "Non displayable" << std::endl;
 	else
-		std::cout << "char: " << static_cast<char>(nb) << std::endl;
-	std::cout << "int: " << static_cast<int>(nb) << std::endl;
-	std::cout << "float: " << static_cast<float>(nb) << ".0f" << std::endl;
-	std::cout << "double: " << static_cast<double>(nb) << ".0" << std::endl;
+		std::cout << BLD_BLUE << "char: " << RESET << static_cast<char>(nb) << std::endl;
+	std::cout << BLD_CYAN << "int: " << RESET << static_cast<int>(nb) << std::endl;
+	std::cout << BLD_MAGENTA << "float: " << RESET << static_cast<float>(nb) << ".0f" << std::endl;
+	std::cout << BLD_YELLOW << "double: " << static_cast<double>(nb) << RESET <<".0" << std::endl;
 }
 
 // static is_nan
 static void is_nan(std::string nan)
 {
-	std::cout << "char: impossible" << std::endl;
-	std::cout << "int: impossible" << std::endl;
+	std::cout << BLD_BLUE << "char: " << RESET << "impossible" << std::endl;
+	std::cout << BLD_CYAN << "int: " << RESET << "impossible" << std::endl;
 	if (nan == "nanf")
 	{
 		float f = std::numeric_limits<float>::quiet_NaN();
-		std::cout << "float: " << f << "f" << std::endl;
-		std::cout << "double: " << static_cast <double> (f) << std::endl;
+		std::cout << BLD_MAGENTA << "float: " << RESET << f << "f" << std::endl;
+		std::cout << BLD_YELLOW << "double: " << RESET << static_cast <double> (f) << std::endl;
 	}
 	else
 	{
 		double d = std::numeric_limits<double>::quiet_NaN();
-		std::cout << "float: " << static_cast <float> (d) << "f" << std::endl;
-		std::cout << "double: " << d << std::endl;
+		std::cout << BLD_MAGENTA << "float: " << RESET << static_cast <float> (d) << "f" << std::endl;
+		std::cout << BLD_YELLOW << "double: " << RESET << d << std::endl;
 	}
 }
 
 // statis is_inf
 static void is_inf(std::string inf)
 {
-	std::cout << "char: impossible" << std::endl;
-	std::cout << "int: impossible" << std::endl;
+	std::cout << BLD_BLUE << "char: " << RESET << "impossible" << std::endl;
+	std::cout << BLD_CYAN << "int: " << RESET << "impossible" << std::endl;
 	if (inf.compare(1, 4, "inff") == 0)
 	{
 		float f = std::numeric_limits<float>::infinity();
 		if (inf[0] == '-')
 			f = -f;
-		std::cout << "float: " << f << "f" << std::endl;
-		std::cout << "double: " << static_cast <double> (f) << std::endl;
+		std::cout << BLD_MAGENTA << "float: " << RESET << f << "f" << std::endl;
+		std::cout << BLD_YELLOW << "double: " << RESET << static_cast <double> (f) << std::endl;
 	}
 	else
 	{
 		double d = std::numeric_limits<double>::infinity();
 		if (inf[0] == '-')
 			d = -d;
-		std::cout << "float: " << static_cast <float> (d) << "f" << std::endl;
-		std::cout << "double: " << d << std::endl;
+		std::cout << BLD_MAGENTA << "float: " << RESET << static_cast <float> (d) << "f" << std::endl;
+		std::cout << BLD_YELLOW << "double: " << RESET << d << std::endl;
 	}
 }
 
 
 // static is_float
-void	is_float(float f)
+static void	is_float(float f)
 {
 	if (f < std::numeric_limits<float>::min() || f > std::numeric_limits<float>::max())
 	{
@@ -110,20 +110,20 @@ void	is_float(float f)
 		return ;
 	}
 	if (f < 0 || f > 127 || !std::isprint(f))
-		std::cout << "char: Non displayable" << std::endl;
+		std::cout << BLD_BLUE << "char: " << RESET << "Non displayable" << std::endl;
 	else
-		std::cout << "char: '" << static_cast<char>(f) << "'" << std::endl;
-	std::cout << "int: " << static_cast<int>(f) << std::endl;
+		std::cout << BLD_BLUE << "char: '" << RESET << static_cast<char>(f) << "'" << std::endl;
+	std::cout << BLD_CYAN << "int: " << RESET << static_cast<int>(f) << std::endl;
 	if (f - static_cast<int>(f) == 0){
-		std::cout << "float: " << f << ".0f" << std::endl;
-    	std::cout << "double: " << static_cast<double>(f) << ".0" << std::endl;}
+		std::cout << BLD_MAGENTA << "float: " << RESET << f << ".0f" << std::endl;
+    	std::cout << BLD_YELLOW << "double: " << RESET << static_cast<double>(f) << ".0" << std::endl;}
 	else{
-    	std::cout << "float: " << f << "f" << std::endl;
-    	std::cout << "double: " << static_cast<double>(f) << std::endl;}
+    	std::cout << BLD_MAGENTA << "float: " << RESET << f << "f" << std::endl;
+    	std::cout << BLD_YELLOW << "double: " << RESET << static_cast<double>(f) << std::endl;}
 }
 
 // static is_double
-void	is_double(double d)
+static void	is_double(double d)
 {
 	if (d < std::numeric_limits<double>::min() || d > std::numeric_limits<double>::max())
 	{
@@ -131,16 +131,16 @@ void	is_double(double d)
 		return ;
 	}
 	if (d < 0 || d > 127 || !std::isprint(d))
-		std::cout << "char: Non displayable" << std::endl;
+		std::cout << BLD_BLUE << "char: " << RESET << "Non displayable" << std::endl;
 	else
-		std::cout << "char: '" << static_cast<char>(d) << "'" << std::endl;
-	std::cout << "int: " << static_cast<int>(d) << std::endl;
+		std::cout << BLD_BLUE << "char: '" << RESET << static_cast<char>(d) << "'" << std::endl;
+	std::cout << BLD_CYAN << "int: " << RESET << static_cast<int>(d) << std::endl;
 	if (d - static_cast<int>(d) == 0){
-		std::cout << "float: " << static_cast<float>(d) << ".0f" << std::endl;
-		std::cout << "double: " << d << ".0" << std::endl;}
+		std::cout << BLD_MAGENTA << "float: " << RESET << static_cast<float>(d) << ".0f" << std::endl;
+		std::cout << BLD_YELLOW << "double: " << RESET << d << ".0" << std::endl;}
 	else{
-		std::cout << "float: " << static_cast<float>(d) << "f" << std::endl;
-		std::cout << "double: " << d << std::endl;}
+		std::cout << BLD_MAGENTA << "float: " << RESET << static_cast<float>(d) << "f" << std::endl;
+		std::cout << BLD_YELLOW << "double: " << RESET << d << std::endl;}
 }
 
 

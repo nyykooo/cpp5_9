@@ -6,7 +6,7 @@
 #    By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/09/25 10:39:21 by ncampbel          #+#    #+#              #
-#    Updated: 2025/02/03 21:28:51 by ncampbel         ###   ########.fr        #
+#    Updated: 2025/04/05 15:43:39 by ncampbel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CXX= c++
 
 CXXFLAGS= -Wall -Wextra -Werror -g -std=c++98
 
-SRC = main.cpp
+SRC = main.cpp ScalarConverter.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
