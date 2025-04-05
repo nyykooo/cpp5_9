@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/04 23:22:02 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/05 14:23:44 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@ int main(void)
 		{
 			std::cerr << e.what() << '\n';
 		}
-		
+		delete bureaucrat;
+		delete intern;
+		delete form;
 	}
 	{
 		Intern *intern;
@@ -54,7 +56,9 @@ int main(void)
 		{
 			std::cerr << BLK_RED << e.what() << RESET << std::endl;
 		}
-		
+		delete bureaucrat;
+		delete intern;
+		delete form;
 	}
 	return 0;
 }
