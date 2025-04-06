@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 19:45:50 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/04 19:53:25 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:27:46 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ Serialization::Serialization(const Serialization& copy)
 	*this = copy;
 }
 
-Serialization & Serialization::operator=(const Serialization& rhs)
+Serialization & Serialization::operator=(const Serialization& copy)
 {
-	(void)rhs;
+	(void)copy;
 	return (*this);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:53 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/04 19:59:33 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:16:40 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,17 @@ int main(int ac, char **av)
 	}
 	data = new Data;
 	data->n = std::strtol(av[1], NULL, 10);
-	std::cout << "Data->n: " << data->n << std::endl;
-	std::cout << "Data->ptr: " << data << std::endl;
-	std::cout << "--------------" << std::endl;
+	std::cout << BLD_GREEN << "\n\n### TESTING SERIALIZATION ###" << RESET << std::endl;
+	std::cout << BLD_CYAN << "Data->ptr: " << UND_MAGENTA << data << RESET << std::endl;
+	std::cout << BLD_BLUE << "Data->n: " << UND_MAGENTA << data->n << RESET << std::endl;
+	std::cout << BLD_YELLOW << "### SERIALIZING ###" << RESET << std::endl;
 	uintptr_t raw = Serialization::serialize(data);
-	std::cout << "Raw: " << raw << std::endl;
-	std::cout << "--------------" << std::endl;
+	std::cout << BLD_WHITE << "Raw: " << UND_MAGENTA << raw << RESET << std::endl;
+	std::cout << BLD_YELLOW << "### DESERIALIZING ###" << RESET << std::endl;
+	data = Serialization::deserialize(raw);
 	Data *newData = Serialization::deserialize(raw);
-	std::cout << "NewData->n: " << newData->n << std::endl;
-	std::cout << "NewData->ptr: " << newData << std::endl;
+	std::cout << BLD_CYAN << "Data->ptr: " << UND_MAGENTA << data << RESET << std::endl;
+	std::cout << BLD_BLUE << "Data->n: " << UND_MAGENTA << data->n << RESET << std::endl;
+	std::cout << BLD_CYAN << "newData->ptr: " << UND_MAGENTA << newData << RESET << std::endl;
+	std::cout << BLD_BLUE << "newData->n: " << UND_MAGENTA << newData->n << RESET << std::endl;
 }

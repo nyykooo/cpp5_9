@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/03 21:30:02 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/04 20:00:34 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/06 14:30:28 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string>
 # include <stdint.h>
 # include <cstdlib>
+# include "output.hpp"
 
 struct Data
 {
@@ -28,7 +29,7 @@ class Serialization
 	public:
 		Serialization();
 		Serialization(const Serialization& copy);
-		Serialization & operator=(const Serialization& rhs);
+		Serialization & operator=(const Serialization& copy);
 		virtual ~Serialization() = 0;
 
 		static uintptr_t	serialize(Data* ptr);
