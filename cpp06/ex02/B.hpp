@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:07:02 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/04 20:08:52 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/04/06 15:41:01 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 
 class B : public Base
 {
-	public:
-		virtual ~B() {};
 };
 
 #endif
