@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:55:00 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/05 14:23:44 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/05 17:23:11 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int main(void)
 {
 	{
-		Intern *intern;
-		Bureaucrat *bureaucrat;
-		AForm *form;
+		Intern *intern = NULL;
+		Bureaucrat *bureaucrat = NULL;
+		AForm *form = NULL;
 
 		try
 		{
@@ -38,9 +38,9 @@ int main(void)
 		delete form;
 	}
 	{
-		Intern *intern;
-		Bureaucrat *bureaucrat;
-		AForm *form;
+		Intern *intern = NULL;
+		Bureaucrat *bureaucrat = NULL;
+		AForm *form = NULL;
 
 		try
 		{
