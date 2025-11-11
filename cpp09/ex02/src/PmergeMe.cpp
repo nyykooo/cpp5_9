@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:24:28 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 20:44:47 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/11 21:26:05 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 
 // ################ LIFE CYCLE ################
 
-PmergeMe::PmergeMe(int ac, char **av)
+PmergeMe::PmergeMe(int ac, char **av) : _depth(0)
 {
 	if (ac <= 1)
 		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
@@ -57,8 +57,8 @@ PmergeMe::PmergeMe(int ac, char **av)
 		}
 		std::cout << RESET << std::endl;
 	}
-	printVec();
-	printList();
+	sortVec();
+	sortList();
 }
 
 

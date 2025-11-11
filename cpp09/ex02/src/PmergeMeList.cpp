@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:24:28 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 20:44:18 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/11 21:26:57 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,14 @@ void PmergeMe::printList(void) const
 		std::cout << *it << " ";
 	}
 	std::cout << RESET << std::endl;
+}
+
+// SORTING ALGORITHM
+void PmergeMe::sortList(void)
+{
+	printList();
+	// 1 - recursevely divide into pairs
+	// 2 - create the main chain
+	// 3 - binary insert using jacobsthal numbers
+	_depth = 0;
 }
