@@ -6,11 +6,11 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:24:28 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/06 21:12:59 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:29:27 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PmergeMe.hpp"
+#include "../includes/headers.hpp"
 
 // ################ LIFE CYCLE ################
 
@@ -40,6 +40,22 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 	return *this;
 }
 
+// ################ LIFE CYCLE ################
+
+PmergeMe::PmergeMe(int ac, char **av)
+{
+	if (ac <= 1)
+		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
+	else
+	{
+		std::cout << "Before: ";
+		for (int i = 1; i < ac; ++i)
+			std::cout << av[i] << " ";
+		std::cout << std::endl;
+	}
+}
+
+
 // ################ GETTERS ################
 
 std::list<int> PmergeMe::getList()
@@ -50,4 +66,12 @@ std::list<int> PmergeMe::getList()
 std::vector<int> PmergeMe::getVec()
 {
 	return _vec;
+}
+
+// ################ EXCEPTIONS ################
+PmergeMe::ParseException::ParseException(const char *msg) : _message(msg) {}
+
+const char *PmergeMe::ParseException::what() const throw()
+{
+	return _message;
 }

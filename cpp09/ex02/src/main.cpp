@@ -1,6 +1,13 @@
 #include "../includes/headers.hpp"
 
-int main(void)
+int main(int ac, char **av)
 {
-	
+	try
+	{
+		PmergeMe PmergeMe(ac, av);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
 }

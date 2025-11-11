@@ -6,15 +6,23 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 18:03:44 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/07 18:04:13 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/11 19:23:59 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADERS_HPP
 # define HEADERS_HPP
 
-# include "iostream"
-# include "vector"
-# include "list"
+// ### DEFAULT LIBRARIES ###
+# include <iostream>
+# include <vector>
+# include <list>
+# include <exception>
+
+// ### MY LIBRARIES ###
+# include "macros.hpp"
+
+// ### CLASSES ###
+# include "PmergeMe.hpp"
 
 #endif
