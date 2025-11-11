@@ -1,37 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PmergeMe.hpp                                       :+:      :+:    :+:   */
+/*   headers.hpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/06 18:14:54 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/06 21:10:52 by ncampbel         ###   ########.fr       */
+/*   Created: 2025/11/07 18:03:44 by ncampbel          #+#    #+#             */
+/*   Updated: 2025/11/07 18:04:13 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PMERGEME_HPP
-# define PMERGEME_HPP
+#ifndef HEADERS_HPP
+# define HEADERS_HPP
 
-#include "iostream"
-#include "vector"
-#include "list"
-
-class PmergeMe
-{
-	private:
-		std::vector<int>	_vec;
-		std::list<int>		_list;
-		
-	public:
-		PmergeMe();
-		PmergeMe(PmergeMe const &other);
-		~PmergeMe();
-		PmergeMe &operator=(PmergeMe const &other);
-
-		// GETTERS
-		std::list<int>		getList();
-		std::vector<int>	getVec();
-};
+# include "iostream"
+# include "vector"
+# include "list"
 
 #endif
