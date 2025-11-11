@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 18:03:44 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 19:23:59 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/11 20:27:42 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <vector>
 # include <list>
 # include <exception>
+# include <cstdlib>
 
 // ### MY LIBRARIES ###
 # include "macros.hpp"

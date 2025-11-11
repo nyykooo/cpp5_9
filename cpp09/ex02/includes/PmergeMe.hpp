@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:14:54 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 19:18:37 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/11 20:16:00 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,11 @@ class PmergeMe
 		std::list<int>		getList();
 		std::vector<int>	getVec();
 
+		// VEC METHODS
+		void printVec(void) const;
+
+		// LIST METHODS
+		void printList(void) const;
 
 		// EXCEPTIONS
 		class ParseException : public std::exception
