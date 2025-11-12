@@ -46,15 +46,26 @@ void PmergeMe::printVec(void) const
 // 	pairingVec();
 // }
 
+void PmergeMe::initInsertVec(void)
+{
+	// main = {b1, a1} + a2 + ... + an
+	// pend = b2 + ... + bn
+	// the remaining numbers won't be used here
+
+}
+
 // SORTING ALGORITHM
 void PmergeMe::sortVec(void)
 {
 	printVec();
 	// 1 - recursevely divide into pairs
-	pairing(&_vec, 1);
-	// pairingVec();
+	pairing(&_vec); // template version
+	// pairingVec(); // specific container version
 	printVec();
-	// 2 - create the main chain
+	// 2 - create the main chain recurevely with the depth obtained by step 1
 	// 3 - binary insert using jacobsthal numbers
+	// steps 2 and 3 are done together
+	std::cout << "depth reached: " << _depth << std::endl;
+	initInsertVec();
 	_depth = 0;
 }
