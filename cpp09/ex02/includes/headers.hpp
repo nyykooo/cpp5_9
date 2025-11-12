@@ -20,6 +20,8 @@
 # include <exception>
 # include <cstdlib>
 # include <cmath> // include math operations
+# include <fstream>
+# include <sstream>
 
 // ### MY LIBRARIES ###
 # include "macros.hpp"

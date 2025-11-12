@@ -21,8 +21,11 @@ class PmergeMe
 		int					_depth;
 		std::vector<int>	_vec;
 		std::vector<int>	_pendVec;
+		std::vector<int>	_mainVec;
+
 		std::list<int>		_list;
 		std::list<int>		_pendList;
+		std::list<int>		_mainList;
 		
 	public:
 		// ORTHODOX CANONICAL FORM
@@ -40,9 +43,11 @@ class PmergeMe
 
 		// VEC METHODS
 		// void pairingVec(void);
-		void printVec(void) const;
-		void sortVec(void);
-		void initInsertVec(void);
+		void				printVec(std::vector<int> vec) const;
+		void				sortVec(void);
+		void				initInsertVec(void);
+		std::vector<int>	fillMainVec(size_t bucket_size, size_t n_unity);
+		std::vector<int>	fillPendVec(size_t bucket_size, size_t n_unity);
 
 		// LIST METHODS
 		// void pairingList(void);
@@ -52,33 +57,33 @@ class PmergeMe
 
 		// TEMPLATE PAIRING - ACESS TO CLASS MEMBERS
 		template<typename T>
-		void swapBuckets(T chunk_one_it, T chunk_two_it, size_t chunk_size)
+		void swapBuckets(T bucket_one, T bucket_two, size_t unity_size)
 		{
 			int temp;
 
-			for (size_t i = 0; i < chunk_size; ++i)
+			for (size_t i = 0; i < unity_size; ++i)
 			{
-				temp = *(chunk_one_it);
-				*(chunk_one_it) = *(chunk_two_it);
-				*(chunk_two_it) = temp;
-				++chunk_one_it;
-				++chunk_two_it;
+				temp = *(bucket_one);
+				*(bucket_one) = *(bucket_two);
+				*(bucket_two) = temp;
+				++bucket_one;
+				++bucket_two;
 			}
 		}
 
 		template<typename T>
-		int getBucketLastValue(T chunk_begin, size_t chunk_size)
+		int getBucketLastValue(T bucket_begin, size_t unity_size)
 		{
-			std::advance(chunk_begin, chunk_size - 1);
-			return (*(chunk_begin));
+			std::advance(bucket_begin, unity_size - 1);
+			return (*(bucket_begin));
 		}
 
 		template<typename T>
 		void pairing(T *container)
 		{
 			_depth++;
-			size_t bucket_size = pow(2, _depth - 1); // in first call will be 1
-			size_t n_buckets = container->size() / (bucket_size * 2);
+			size_t unity_size = pow(2, _depth - 1); // in first call will be 1
+			size_t n_buckets = container->size() / (unity_size * 2);
 
 			if (n_buckets == 0)
 			{
@@ -88,11 +93,11 @@ class PmergeMe
 
 			for (size_t compare = 0; compare < n_buckets; ++compare)
 			{
-				typename T::iterator bucket1_start = (container->begin() + compare * (bucket_size * 2));
-				typename T::iterator bucket2_start = bucket1_start + bucket_size;
+				typename T::iterator bucket1_start = (container->begin() + compare * (unity_size * 2));
+				typename T::iterator bucket2_start = bucket1_start + unity_size;
 				// verify if the last element of a chunk is greater than the last of the next chunk
-				if (getBucketLastValue(bucket1_start, bucket_size) > getBucketLastValue(bucket2_start, bucket_size))
-					swapBuckets(bucket1_start, bucket2_start, bucket_size);
+				if (getBucketLastValue(bucket1_start, unity_size) > getBucketLastValue(bucket2_start, unity_size))
+					swapBuckets(bucket1_start, bucket2_start, unity_size);
 			}
 			pairing(container);
 		}
