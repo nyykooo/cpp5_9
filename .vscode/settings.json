@@ -51,6 +51,15 @@
 		"iomanip": "cpp",
 		"list": "cpp",
 		"*.tpp": "cpp",
-		"map": "cpp"
+		"map": "cpp",
+		"charconv": "cpp",
+		"chrono": "cpp",
+		"optional": "cpp",
+		"ratio": "cpp",
+		"format": "cpp",
+		"span": "cpp",
+		"text_encoding": "cpp",
+		"cinttypes": "cpp",
+		"variant": "cpp"
 	}
 }
