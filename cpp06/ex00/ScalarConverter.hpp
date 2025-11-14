@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/26 11:03:42 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/05 17:16:29 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/14 18:15:34 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <sstream>
 # include <limits>
 # include <iomanip>
-# include "output.hpp"
+# include "macros.hpp"
 
 class ScalarConverter
 {

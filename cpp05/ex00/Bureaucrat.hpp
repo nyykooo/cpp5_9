@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 20:58:20 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/01 21:05:35 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/14 18:15:34 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <iostream>
 # include <string>
 # include <exception>
-# include "output.hpp"
+# include "macros.hpp"
 
 class Bureaucrat
 {

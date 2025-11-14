@@ -18,7 +18,7 @@
 # include <ctime>
 //# include <sys/time.h>
 # include "Bureaucrat.hpp"
-# include "output.hpp"
+# include "macros.hpp"
 
 class Bureaucrat;
 
