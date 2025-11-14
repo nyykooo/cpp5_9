@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:14:54 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 22:31:48 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/14 22:17:09 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ class PmergeMe
 		std::vector<int>	_vec;
 		std::vector<int>	_pendVec;
 		std::vector<int>	_mainVec;
+		std::vector<int>	_remainingVec;
 
 		std::list<int>		_list;
 		std::list<int>		_pendList;
@@ -48,6 +49,8 @@ class PmergeMe
 		void				initInsertVec(void);
 		std::vector<int>	fillMainVec(size_t bucket_size, size_t n_unity);
 		std::vector<int>	fillPendVec(size_t bucket_size, size_t n_unity);
+		std::vector<int>	fillRemainingVec(void);
+		std::vector<int>	binaryInsert(size_t unity_size);
 
 		// LIST METHODS
 		// void pairingList(void);
@@ -87,7 +90,7 @@ class PmergeMe
 
 			if (n_buckets == 0)
 			{
-				_depth--; // remove last depth reached
+				// _depth--; // remove last depth reached
 				return ; // end recursive calls
 			}
 
