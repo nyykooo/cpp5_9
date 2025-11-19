@@ -33,5 +33,4 @@ void PmergeMe::sortList(void)
 	// 1 - recursevely divide into pairs
 	// 2 - create the main chain
 	// 3 - binary insert using jacobsthal numbers
-	_depth = 0;
 }

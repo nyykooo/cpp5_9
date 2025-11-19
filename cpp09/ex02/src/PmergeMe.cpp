@@ -42,7 +42,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 
 // ################ LIFE CYCLE ################
 
-PmergeMe::PmergeMe(int ac, char **av) : _depth(0)
+PmergeMe::PmergeMe(int ac, char **av)
 {
 	if (ac <= 1)
 		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
