@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/04 20:09:38 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/06 16:00:10 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/19 17:26:26 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void identify(Base* p)
 		std::cout << BLD_MAGENTA << "B" << RESET << std::endl;
 	else if (dynamic_cast<C*>(p))
 		std::cout << BLD_MAGENTA << "C" << RESET << std::endl;
+	else
+		std::cout << BLK_RED << "Unknown" << RESET << std::endl;
 }
 
 void identify(Base& p)

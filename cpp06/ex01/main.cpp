@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/29 18:03:53 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/04/06 15:16:40 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/19 16:38:28 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,5 @@ int main(int ac, char **av)
 	std::cout << BLD_BLUE << "Data->n: " << UND_MAGENTA << data->n << RESET << std::endl;
 	std::cout << BLD_CYAN << "newData->ptr: " << UND_MAGENTA << newData << RESET << std::endl;
 	std::cout << BLD_BLUE << "newData->n: " << UND_MAGENTA << newData->n << RESET << std::endl;
+	delete data;
 }
