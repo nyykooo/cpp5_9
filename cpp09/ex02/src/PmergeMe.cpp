@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:24:28 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 21:26:05 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:36:25 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // ################ LIFE CYCLE ################
 
-PmergeMe::PmergeMe()
+PmergeMe::PmergeMe() : _compairsons(0)
 {
 	
 }
@@ -42,23 +42,41 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 
 // ################ LIFE CYCLE ################
 
-PmergeMe::PmergeMe(int ac, char **av) : _depth(0)
+static int F(int n)
 {
-	if (ac <= 1)
+    int sum = 0;
+    for (int k = 1; k <= n; ++k) {
+        double value = (3.0 / 4.0) * k;
+        sum += static_cast<int>(ceil(log2(value)));
+    }
+    return (sum);
+}
+
+PmergeMe::PmergeMe(int ac, char **av) : _compairsons(0)
+{
+	if (ac == 0)
 		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
 	else
 	{
-		std::cout << BLD_GREEN << "Before: ";
-		for (int i = 1; i < ac; ++i)
-		{
-			_vec.push_back(std::atoi(av[i]));
-			_list.push_back(std::atoi(av[i]));
-			std::cout << av[i] << " ";
+		std::string			str;
+		std::stringstream	ss;
+		char				*endptr = NULL;
+		ss << av[1];
+		while (ss >> str) {
+			long	num;
+			errno = 0;
+			num = std::strtol(str.c_str(), &endptr, 10);
+			if (*endptr || errno == ERANGE || num < 0 || num > INT_MAX)
+				throw std::runtime_error(str + " :Invalid input!");
+			_vec.push_back(static_cast<int>(num));
+			_list.push_back(static_cast<int>(num));
 		}
-		std::cout << RESET << std::endl;
 	}
 	sortVec();
+	std::cout << "compairsons made to vec: " << _compairsons << std::endl;
+	_compairsons = 0;
 	sortList();
+	std::cout << "MAX EXPECTED COMPAIRSONS: " << F(_vec.size()) << std::endl;
 }
 
 

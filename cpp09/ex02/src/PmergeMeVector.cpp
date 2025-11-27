@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:24:28 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/14 22:20:55 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/19 19:09:26 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,140 +24,200 @@ void PmergeMe::printVec(std::vector<int> vec) const
 	std::cout << ss.str() << std::endl;
 }
 
-
-// // TODO -> TEMPLATE THIS PAIRING FUNCTION
-// void PmergeMe::pairingVec(void)
-// {
-// 	_depth++;
-// 	size_t bucket_size = pow(2, _depth - 1); // in first call will be 1
-// 	size_t n_buckets = _vec.size() / (bucket_size * 2);
-
-// 	if (n_buckets == 0)
-// 		return ; // end recursive calls
-
-// 	for (size_t compare = 0; compare < n_buckets; ++compare)
-// 	{
-// 		std::vector<int>::iterator bucket1_start = (_vec.begin() + compare * (bucket_size * 2));
-// 		std::vector<int>::iterator bucket2_start = bucket1_start + bucket_size;
-// 		// verify if the last element of a chunk is greater than the last of the next chunk
-// 		if (getBucketLastValue(bucket1_start, bucket_size) > getBucketLastValue(bucket2_start, bucket_size))
-// 			swapBuckets(bucket1_start, bucket2_start, bucket_size);
-// 	}
-// 	pairingVec();
-// }
-
-std::vector<int> PmergeMe::binaryInsert(size_t unity_size)
+int PmergeMe::binarySearch(int to_insert, int low, int high)
 {
-	// jacobsthal numbers sequence logic:
-	// current = previous + 2 × (previous of the previous)
-	// it starts with 0 and 1 (which are fixed), after that follows the above equation
-	// The next number is: 1 + 2 × 0 = 1 So, the sequence becomes: 0, 1, 1.
-    // After that: 1 + 2 × 1 = 3 The sequence is now: 0, 1, 1, 3.
-    // After that: 3 + 2 × 1 = 5 The sequence is now: 0, 1, 1, 3, 5.
-    // After that: 5 + 2 × 3 = 11 The sequence is now: 0, 1, 1, 3, 5, 11.
+    if (high <= low)
+        return (to_insert > _mainVec[low]) ? (low + 1) : low;
 
-	// Why do we need the Jacobsthal sequence?
+    int mid = (low + high) / 2;
 
-	std::vector<int>::iterator main_it = _mainVec.begin();
-	
-	if (_pendVec.size() == 0)
-		return _vec;
-	
-	std::vector<int>::iterator insert_start = _pendVec.begin();
-	std::vector<int>::iterator insert_end = insert_start + unity_size;
+	_compairsons++;
 
-	_mainVec.insert(main_it + unity_size, insert_start, insert_end);
+    if (to_insert == _mainVec[mid])
+        return mid + 1;
 
-	
-	std::vector<int>::iterator main_end = _mainVec.end();
-	_mainVec.insert(main_end, _remainingVec.begin(), _remainingVec.end());
+    if (to_insert > _mainVec[mid])
+        return binarySearch(to_insert, mid + 1, high);
+	else
+    	return binarySearch(to_insert, low, mid - 1);
+}
+
+void PmergeMe::binaryInsertVec(int js, int inserted, int g_inserted)
+{
+	int index = js - inserted;
+
+	// locate _pend[index] and use it to start binary insertion at _main[index - 1]
+	int to_insert = _pendVec[index];
+
+	// boundaries to search in _mainVec
+	int low = 0;
+	int high = index + g_inserted;
+
+	int pos = binarySearch(to_insert, low, high);
+
+	std::vector<int>::iterator posInsertion = _mainVec.begin() + pos;
+	_mainVec.insert(posInsertion, _pendVec[index]);
+}
+
+std::vector<int> PmergeMe::prepareInsertionVec(void)
+{
+	std::vector<int> js;
+
+	getJacobsthalNumber(&js, _pendVec.size());
+
+	// insert backwards (using jacobsthal sequence)
+	size_t size = js.size();
+
+
+	std::vector<int>::iterator posInsertion = _mainVec.begin();
+	_mainVec.insert(posInsertion, _pendVec[0]);
+	int g_inserted = 0;
+	for (size_t i = 1; i < size; i++)
+	{
+		int amount_to_insert = js[i] - js[i-1];
+		int inserted = 0;
+		// std::cout << "amount to insert: " << amount_to_insert << std::endl;
+		while (amount_to_insert > 0)
+		{
+			binaryInsertVec(js[i] - 1, inserted, g_inserted);
+			inserted++;
+			g_inserted++;
+			amount_to_insert--;
+		}
+	}
+
+	// insert remaining values from pend
+	int pend_size = _pendVec.size();
+	if (static_cast<int>(pend_size) > g_inserted)
+	{
+		int amount_to_insert = pend_size - g_inserted - 1;
+		int inserted = 0;
+		while (amount_to_insert > 0)
+		{
+			binaryInsertVec(pend_size - 1, inserted, g_inserted);
+			inserted++;
+			g_inserted++;
+			amount_to_insert--;
+		}
+	}
+
 	return _mainVec; // TODO: push back remaining numbers
 }
 
-std::vector<int> PmergeMe::fillMainVec(size_t unity_size, size_t n_unity)
+void PmergeMe::insertVec(void)
 {
-	std::vector<int> res;
+	prepareInsertionVec();
 
-	// insert unity 1, 2, 4, 6, 8, ... n (where n is pair)
-	// this means i == 0, 1, 3, 5, 7 ... (where i is odd or 0)
-	// use push_back to add from _vec to res
-	for (size_t i = 0; i < n_unity; i++)
-		if (i % 2 == 1 || i == 0)
-			for (size_t j = 0; j < unity_size; j++)
-				res.push_back(_vec[j + i*unity_size]);
-	return res;
+	_vec = _mainVec;
 }
 
-std::vector<int> PmergeMe::fillRemainingVec(void)
+void PmergeMe::initChainsVec(void)
 {
-	std::vector<int> res;
-
-	// insert unity _vec from _mainVec.size() + _pendVec.size()
-	size_t start = _mainVec.size() + _pendVec.size();
-	size_t end = _vec.size();
-
-	for (size_t i = start; i < end; i++)
-		res.push_back(_vec[i]);
-	return res;
-}
-
-std::vector<int> PmergeMe::fillPendVec(size_t unity_size, size_t n_unity)
-{
-	std::vector<int> res;
-
-	// insert unity 3, 5, 7, 9, ... n (where n is odd)
-	// this means i == 2, 4, 6, 8 ... (whee i is pair)
-	for (size_t i = 2; i < n_unity; i++)
-		if (i % 2 == 0)
-			for (size_t j = 0; j < unity_size; j++)
-				res.push_back(_vec[j + i*unity_size]);
-	return res;
-}
-
-void PmergeMe::initInsertVec(void)
-{
-	// main = {b1, a1} + a2 + ... + an
+	// main = a1 + a2 + ... + an
 	// main is constructed like this because we know for sure that
-	// b1 < a1, and a1 is lesser than any other a
-	// pend = b2 + ... + bn
-	// the remaining numbers won't be used here
+	// a1 < a2 < a3 ... < an
+	// pend = b1 + b2 + ... + bn + (remaining numbers)
 
-	if (_depth == 0)
-		return ;
+	size_t size = _pairedVec.size();
 
-	// one bucket contains a pair of elements {b, a}
-	size_t unity_size = pow(2, _depth - 1);
-	size_t n_unity = _vec.size() / (unity_size);
-	std::cout << "unity_size: " << unity_size << std::endl;
-	std::cout << "n_unity: " << n_unity << std::endl;
+	for (size_t i = 0; i < size; i++)
+	{
+		_mainVec.push_back(_pairedVec[i].large);
+		_pendVec.push_back(_pairedVec[i].small);
+	}
+	if (_vec.size() % 2 == 1)
+		_pendVec.push_back(_vec[_vec.size() - 1]);
+}
 
-	_mainVec = fillMainVec(unity_size, n_unity);
-	_pendVec = fillPendVec(unity_size, n_unity);
+void PmergeMe::initPairsVec(void)
+{
+	size_t size = _vec.size() % 2 == 0 ? _vec.size() : _vec.size() - 1;
+	for (size_t i = 0; i < size; i += 2)
+	{
+		s_pair newPair;
+		if (_vec[i] > _vec[i+1])
+		{
+			newPair.large = _vec[i];
+			newPair.small = _vec[i+1];	
+		}
+		else if (_vec[i] < _vec[i+1])
+		{
+			newPair.large = _vec[i+1];	
+			newPair.small = _vec[i];
+		}
+		else
+		{
+			// foundDuplicateException
+		}
+		_pairedVec.push_back(newPair);
+	}
+}
 
-	// TODO: CREATE REMAINING NUMBERS
-	_remainingVec = fillRemainingVec();
-	
-	_vec = binaryInsert(unity_size);
-	std::cout << "_vec -> "; 
-	printVec(_vec);
-	_depth--;
-	initInsertVec();
+// Merges two subarrays of arr[].
+// First subarray is arr[left..mid]
+// Second subarray is arr[mid+1..right]
+void PmergeMe::mergeVec(int left, int mid, int right)
+{
+                         
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    // Create temp vectors
+    std::vector<s_pair> L(n1), R(n2);
+
+    // Copy data to temp vectors L[] and R[]
+    for (int i = 0; i < n1; i++)
+        L[i] = _pairedVec[left + i];
+    for (int j = 0; j < n2; j++)
+        R[j] = _pairedVec[mid + 1 + j];
+
+    int i = 0, j = 0;
+    int k = left;
+
+    // Merge the temp vectors back 
+    // into _pairedVec[left..right]
+    while (i < n1 && j < n2) {
+		_compairsons++;
+        if (L[i].large <= R[j].large)
+            _pairedVec[k] = L[i++];
+        else 
+            _pairedVec[k] = R[j++];
+        k++;
+    }
+
+    // Copy the remaining elements of L[], 
+    // if there are any
+    while (i < n1)
+        _pairedVec[k++] = L[i++];
+
+    // Copy the remaining elements of R[], 
+    // if there are any
+    while (j < n2)
+        _pairedVec[k++] = R[j++];
+}
+
+// begin is for left index and end is right index
+// of the sub-array of arr to be sorted
+void PmergeMe::mergeSortVec(int left, int right){
+    
+    if (left >= right)
+        return;
+
+    int mid = left + (right - left) / 2;
+    mergeSortVec(left, mid);
+    mergeSortVec(mid + 1, right);
+    mergeVec(left, mid, right);
 }
 
 // SORTING ALGORITHM
 void PmergeMe::sortVec(void)
 {
-	// std::cout << "_vec -> "; 
-	// printVec(_vec);
-	// 1 - recursevely divide into pairs
-	pairing(&_vec); // template version
-	// pairingVec(); // specific container version
-	// std::cout << "_vec -> "; 
-	// printVec(_vec);
-	// 2 - create the main chain recurevely with the depth obtained by step 1
-	// 3 - binary insert using jacobsthal numbers
-	// steps 2 and 3 are done together
-	// std::cout << "depth reached: " << _depth << std::endl;
-	initInsertVec();
-	_depth = 0;
+	// 1 - divide into pairs
+	initPairsVec();
+	// 2 - merge sort _pairedVec by 'large'
+	mergeSortVec(0, _pairedVec.size() - 1);
+	// 3 - create the main chain and pend using the paired numbers from step 1
+	initChainsVec();
+	// 4 - binary insert using jacobsthal numbers sequence
+	insertVec();
 }
