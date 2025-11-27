@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/07 18:03:44 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/11 21:33:28 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:30:36 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <cmath> // include math operations
 # include <fstream>
 # include <sstream>
+# include <climits>
+# include <cstring>			// includes memset(), memcpy(), etc.
 
 // ### MY LIBRARIES ###
 # include "macros.hpp"

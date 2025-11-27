@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:14:54 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/14 22:17:09 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:33:23 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@ typedef struct t_pair
 class PmergeMe
 {
 	private:
-		std::vector<int>	_vec; // original vector
-		std::vector<int>	_pendVec; // lesser numbers of the paired vec + remaining if _vec.size() is odd
-		std::vector<int>	_mainVec; // bigger numbers of the paired vec -> will receive the insertion
-		std::vector<s_pair>	_pairedVec; // originial vector paired to merge
-
-		std::list<int>		_list;
-		std::list<int>		_pendList;
-		std::list<int>		_mainList;
-		
+	
+	std::vector<int>	_vec; // original vector
+	std::vector<int>	_pendVec; // lesser numbers of the paired vec + remaining if _vec.size() is odd
+	std::vector<int>	_mainVec; // bigger numbers of the paired vec -> will receive the insertion
+	std::vector<s_pair>	_pairedVec; // originial vector paired to merge
+	
+	std::list<int>		_list;
+	std::list<int>		_pendList;
+	std::list<int>		_mainList;
+	
 	public:
+		int				_compairsons;
 		// ORTHODOX CANONICAL FORM
 		PmergeMe();
 		PmergeMe(PmergeMe const &other);
@@ -139,8 +141,6 @@ void getJacobsthalNumber(T *jsConainer, size_t size)
     // After that: 1 + 2 × 1 = 3 The sequence is now: 0, 1, 1, 3.
     // After that: 3 + 2 × 1 = 5 The sequence is now: 0, 1, 1, 3, 5.
     // After that: 5 + 2 × 3 = 11 The sequence is now: 0, 1, 1, 3, 5, 11.
-
-	std::cout << "pend size: " << size << std::endl;
 
 	size_t js = 1;
 	int prev = 0;

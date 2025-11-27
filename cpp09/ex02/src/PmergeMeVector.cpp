@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/06 18:24:28 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/14 22:20:55 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/19 19:09:26 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int PmergeMe::binarySearch(int to_insert, int low, int high)
 
     int mid = (low + high) / 2;
 
+	_compairsons++;
+
     if (to_insert == _mainVec[mid])
         return mid + 1;
 
@@ -43,15 +45,13 @@ int PmergeMe::binarySearch(int to_insert, int low, int high)
 void PmergeMe::binaryInsertVec(int js, int inserted, int g_inserted)
 {
 	int index = js - inserted;
-	std::cout << "index: " << index << std::endl;
 
 	// locate _pend[index] and use it to start binary insertion at _main[index - 1]
 	int to_insert = _pendVec[index];
-	std::cout << "value to insert: " << to_insert << std::endl;
 
 	// boundaries to search in _mainVec
 	int low = 0;
-	int high = index -1 + g_inserted;
+	int high = index + g_inserted;
 
 	int pos = binarySearch(to_insert, low, high);
 
@@ -64,8 +64,6 @@ std::vector<int> PmergeMe::prepareInsertionVec(void)
 	std::vector<int> js;
 
 	getJacobsthalNumber(&js, _pendVec.size());
-	std::cout << "_jsVec: ";
-	printVec(js);
 
 	// insert backwards (using jacobsthal sequence)
 	size_t size = js.size();
@@ -94,8 +92,6 @@ std::vector<int> PmergeMe::prepareInsertionVec(void)
 	{
 		int amount_to_insert = pend_size - g_inserted - 1;
 		int inserted = 0;
-		g_inserted++;
-		std::cout << "amount to insert: " << amount_to_insert << std::endl;
 		while (amount_to_insert > 0)
 		{
 			binaryInsertVec(pend_size - 1, inserted, g_inserted);
@@ -113,9 +109,6 @@ void PmergeMe::insertVec(void)
 	prepareInsertionVec();
 
 	_vec = _mainVec;
-
-	std::cout << "_vec -> "; 
-	printVec(_vec);
 }
 
 void PmergeMe::initChainsVec(void)
@@ -134,10 +127,6 @@ void PmergeMe::initChainsVec(void)
 	}
 	if (_vec.size() % 2 == 1)
 		_pendVec.push_back(_vec[_vec.size() - 1]);
-	std::cout << "_mainVec -> "; 
-	printVec(_mainVec);
-	std::cout << "_pendVec -> "; 
-	printVec(_pendVec);
 }
 
 void PmergeMe::initPairsVec(void)
@@ -188,6 +177,7 @@ void PmergeMe::mergeVec(int left, int mid, int right)
     // Merge the temp vectors back 
     // into _pairedVec[left..right]
     while (i < n1 && j < n2) {
+		_compairsons++;
         if (L[i].large <= R[j].large)
             _pairedVec[k] = L[i++];
         else 

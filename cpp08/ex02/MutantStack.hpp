@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:05:35 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/03/10 19:22:59 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/27 19:44:28 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 # define MUTANTSTACK_HPP
 
 # include <iostream>
+# include <algorithm>
 # include <stack>
 # include <deque>
+# include "macros.hpp"
 
 template <typename T>
 class MutantStack: public std::stack<T>
@@ -32,9 +34,21 @@ class MutantStack: public std::stack<T>
 		size_t size();
 		bool empty();
 		
-		typedef typename std::deque<T>::iterator iterator;
+		typedef typename std::stack<T>::container_type::iterator iterator;
+		typedef typename std::stack<T>::container_type::const_iterator const_iterator;
+		typedef typename std::stack<T>::container_type::reverse_iterator reverse_iterator;
+		typedef typename std::stack<T>::container_type::const_reverse_iterator const_reverse_iterator;
 		iterator begin();
 		iterator end();
+		
+		const_iterator begin() const;
+		const_iterator end() const;
+		
+		reverse_iterator rbegin();
+		reverse_iterator rend();
+		
+		const_reverse_iterator rbegin() const;
+		const_reverse_iterator rend() const;
 };
 
 # include "MutantStack.tpp"

@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 17:17:36 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/27 19:23:38 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/27 17:22:00 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <algorithm>
 # include <exception>
 # include <vector>
+# include "macros.hpp"
 
 class Span{
 	private:

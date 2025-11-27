@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 20:28:42 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/03/10 19:23:25 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/27 18:36:02 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ bool MutantStack<T>::empty()
 	return (std::stack<T>::empty());
 }
 
+
+// ####### ITERATOR #######
 template <typename T>
 typename MutantStack<T>::iterator MutantStack<T>::begin()
 {
@@ -75,4 +77,39 @@ template <typename T>
 typename MutantStack<T>::iterator MutantStack<T>::end()
 {
 	return (std::stack<T>::c.end());
+}
+
+// ####### CONST ITERATOR #######
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::begin() const {
+	return this->c.begin();
+}
+
+template <typename T>
+typename MutantStack<T>::const_iterator MutantStack<T>::end() const {
+	return this->c.end();
+}
+
+// ####### REVERSE ITERATOR #######
+template <typename T>
+typename MutantStack<T>::reverse_iterator MutantStack<T>::rbegin()
+{
+	return (std::stack<T>::c.rbegin());
+}
+
+template <typename T>
+typename MutantStack<T>::reverse_iterator MutantStack<T>::rend()
+{
+	return (std::stack<T>::c.rend());
+}
+
+// ####### CONST ITERATOR #######
+template <typename T>
+typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rbegin() const {
+	return this->c.rbegin();
+}
+
+template <typename T>
+typename MutantStack<T>::const_reverse_iterator MutantStack<T>::rend() const {
+	return this->c.rend();
 }

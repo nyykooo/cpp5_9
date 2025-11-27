@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:52:50 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/27 19:23:41 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/27 17:38:00 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void Span::addManyNumbers(std::vector<int>::iterator begin, std::vector<int>::it
 {
 	if (_container.size() + std::distance(begin, end) > _n)
 		throw Span::FullSpanException();
-	std::cout << "Adding " << std::distance(begin, end) << " numbers." << std::endl;
+	std::cout << BLD_GREEN << "Adding " << std::distance(begin, end) << " numbers." << RESET << std::endl;
 	_container.insert(_container.end(), begin, end);
 }
 

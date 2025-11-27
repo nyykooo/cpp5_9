@@ -6,7 +6,7 @@
 /*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 20:03:10 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/02/26 17:13:08 by ncampbel         ###   ########.fr       */
+/*   Updated: 2025/11/25 18:40:59 by ncampbel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <vector>
 # include <list>
 # include <deque>
+# include "macros.hpp"
 
 template <typename T>
 int easyfind(T &container, int n);
