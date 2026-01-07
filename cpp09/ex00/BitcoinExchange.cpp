@@ -1,143 +1,165 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   BitcoinExchange.cpp                                :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/13 19:09:07 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/03/24 19:47:17 by ncampbel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange()
-{
-}
+// #### LIFE CYCLE ####
 
-BitcoinExchange::BitcoinExchange(std::string line)
-{
-	setDate(line.substr(0, line.find(",")));
-	if (line.find(",") != std::string::npos)
-	{
-		setValueString(line.substr(line.find(",") + 1, line.size()));
-		setValue(this->_valueString);
-	}
-	else
-		this->_valueString = "";
-	setError(checkDate(this->_dateString));
-	setError(checkValue(this->_valueString));
-}
+BitcoinExchange::BitcoinExchange() {}
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy)
-{
-	*this = copy;
-}
+BitcoinExchange::BitcoinExchange(const BitcoinExchange &copy) : _db(copy._db) {}
 
-BitcoinExchange::~BitcoinExchange()
-{
-}
+BitcoinExchange::~BitcoinExchange() {}
 
 BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy)
 {
-	this->_date = copy._date;
-	this->_dateString = copy._dateString;
-	this->_valueString = copy._valueString;
-	this->_value = copy._value;
-	this->_error = copy._error;
+    if (this != &copy)
+    {
+        this->_db = copy._db;
+    }
 	return (*this);
 }
 
-// ### CHECKERS ###
-std::string BitcoinExchange::checkDate(std::string date) const
+BitcoinExchange::BitcoinExchange(std::string dataBase)
 {
-	std::string year = date.substr(0, date.find_first_of("-"));
-	std::istringstream month(date.substr(date.find_first_of("-") + 1, 3));
-	std::istringstream day(date.substr(date.find_last_of("-") + 1, 3));
-
-	if (year.size() != 4)
-		return ("Error: bad year.");
-
-	int num;
-	month >> num;
-	if (num < 1 || num > 12)
-		return ("Error: bad month.");
-	
-	day >> num;
-	if (num < 1 || num > 31)
-		return ("Error: bad day.");
-	
-	return("ok");
+    storeDb(dataBase);
 }
 
-std::string BitcoinExchange::checkValue(std::string valueString) const
+// #### SETTERS ####
+
+void BitcoinExchange::storeDb(std::string dbName)
 {
-	std::istringstream value(valueString);
-	double num;
+    std::ifstream db;
+    db.open(dbName.c_str());
 
-	if (valueString == "")
-		return ("Error: bad input => " + this->_dateString);
+    if (!db.is_open())
+        throw std::runtime_error("Error: fail to open data base file");
+    
+    std::string line;
+    std::getline(db, line); // skips first line headers -> (date,exchange_rate)
 
-	value >> num;
-	if (num < 0)
-		return ("Error: not a positive number.");
-	
-	if (num > std::numeric_limits<int>::max())
-		return ("Error: too large a number.");
+    while (std::getline(db, line))
+    {
+        size_t separator = line.find(',');
 
-	return ("ok");
+        if (separator == std::string::npos)
+            continue; // entender o que isso faz (porque pular para a proxima e nao retornar erro??)
+
+        _db[line.substr(0, separator)] = atof(line.substr(separator + 1).c_str());
+    }
+    db.close();
 }
 
+// #### RUN ####
 
-// ### SETTERS ###
-void BitcoinExchange::setDate(std::string date)
+void BitcoinExchange::run(std::string fileName)
 {
-	std::istringstream dateStream(date);
-	this->_dateString = date;
-	char dash1;
-	char dash2;
-	dateStream >> this->_date.tm_year >> dash1 >> this->_date.tm_mon >> dash2 >> this->_date.tm_mday;
-	if (dash1 != '-' || dash2 != '-')
-	{
-		this->_error = "Error: bad date format.";
-		return ;
-	}
+    std::ifstream file;
+    file.open(fileName.c_str());
+    if (!file)
+        throw std::runtime_error("Error: fail to open input file");
+    std::string line;
+    std::getline(file, line); // skips input file headers -> (date | value)
+    if (line != "date | value")
+        throw std::runtime_error("Error: invalid input file."); // para a execucao por isso throw
+
+    while (getline(file, line))
+    {
+        if (line.empty())
+            continue;
+
+        size_t separator = line.find('|');
+        if (separator  == std::string::npos)
+        {
+            printError("Error: bad input => " + line);
+            continue;
+        }
+
+        std::string date = line.substr(0, separator - 1); // aqui usa-se o -1 para pular o espaco entre a data e o '|'
+        if (!parseDate(date))
+        {
+            printError("Error: bad input => " + date); 
+            continue;
+        }
+
+        float value = atof(line.substr(separator + 1).c_str());
+        if (!parseValue(value))
+            continue;
+
+        printSuccess(date, value);
+    }
 }
 
-void BitcoinExchange::setValue(std::string value)
+void BitcoinExchange::printError(std::string message)
 {
-	std::istringstream valueStream(value);
-	valueStream >> this->_value;
+    std::cout << message << std::endl;
 }
 
-void BitcoinExchange::setValueString(std::string valueString)
+void BitcoinExchange::printSuccess(std::string date, float value)
 {
-	this->_valueString = valueString;
+    // lower_bound usa o binary search para localizar o elemento
+    // isso garante que se nao houver um match exato o valor sera da data mais proxima (usando a data inferior)
+    std::map<std::string, float>::iterator it = _db.lower_bound(date);
+
+    if (it != _db.end() && it->first == date)
+        std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
+    else
+    {
+        if (it == _db.begin()) // _db.begin() localiza antes do primeiro elemento de _db
+            std::cout << "Error: bad input => " << date << " (too early)" << std::endl;
+        else
+        {
+            it--;
+            std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
+        }
+    }
 }
 
-void BitcoinExchange::setError(std::string error)
+bool BitcoinExchange::parseDate(std::string date)
 {
-	this->_error = error;
+    // first validate date length and format YYYY-MM-DD (length == 10 && date[4]/date[7] == '-')
+    if (date.length() != 10)
+        return false;
+    if (date[4] != '-' || date[7] != '-')
+        return false;
+
+    int year = std::atoi(date.substr(0, 4).c_str());
+    int month = std::atoi(date.substr(5, 2).c_str());
+    int day = std::atoi(date.substr(8, 2).c_str());
+
+    if (year < 2009) // ano de surgimento do BTC
+        return false;
+    if (month < 1 || month > 12)
+        return false;
+    if (day < 1 || day > 31)
+        return false;
+
+    if (month == 2) // verifica anos bissextos -> multiplos de 4 que nao sao multiplos de 100 MAS inclui os multiplos de 400
+    {
+        bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
+        if (isLeap && day > 29)
+            return false;
+        if (!isLeap && day > 28)
+            return false;
+    }
+    else if (month == 4 || month == 6 || month == 9 || month == 11) // verifica se o dia esta dentro dos limites dos meses que tem apenas 30 dias
+    {
+        if (day > 30)
+            return false;
+    }
+
+    return true;
 }
 
-// ### GETTERS ###
-std::tm BitcoinExchange::getDate() const
+bool BitcoinExchange::parseValue(float value)
 {
-	return (this->_date);
-}
 
-std::string BitcoinExchange::getDateString() const
-{
-	return (this->_dateString);
-}
-
-float BitcoinExchange::getValue() const
-{
-	return (this->_value);
-}
-
-std::string BitcoinExchange::getError() const
-{
-	return (this->_error);
+    if (value < 0)
+    {
+        printError("Error: not a positive number.");
+        return false;
+    }
+    if (value > 1000)
+    {
+        printError("Error: too large a number.");
+        return false;
+    }
+    return true;
 }
