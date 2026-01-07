@@ -19,15 +19,8 @@ BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &copy)
 
 BitcoinExchange::BitcoinExchange(std::string dataBase)
 {
-    storeDb(dataBase);
-}
-
-// #### SETTERS ####
-
-void BitcoinExchange::storeDb(std::string dbName)
-{
     std::ifstream db;
-    db.open(dbName.c_str());
+    db.open(dataBase.c_str());
 
     if (!db.is_open())
         throw std::runtime_error("Error: fail to open data base file");
@@ -150,7 +143,6 @@ bool BitcoinExchange::parseDate(std::string date)
 
 bool BitcoinExchange::parseValue(float value)
 {
-
     if (value < 0)
     {
         printError("Error: not a positive number.");
