@@ -16,13 +16,14 @@
 // ### DEFAULT LIBRARIES ###
 # include <iostream>
 # include <vector>
-# include <list>
+# include <deque>
 # include <exception>
 # include <cstdlib>
 # include <cmath> // include math operations
 # include <fstream>
 # include <sstream>
 # include <climits>
+# include <ctime>   
 # include <cstring>			// includes memset(), memcpy(), etc.
 
 // ### MY LIBRARIES ###

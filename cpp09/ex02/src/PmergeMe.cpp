@@ -14,27 +14,21 @@
 
 // ################ LIFE CYCLE ################
 
-PmergeMe::PmergeMe() : _compairsons(0)
-{
-	
-}
+PmergeMe::PmergeMe() {}
 
 PmergeMe::PmergeMe(PmergeMe const &other)
 {
-	this->_list = other._list;
+	this->_deque = other._deque;
 	this->_vec = other._vec;
 }
 
-PmergeMe::~PmergeMe()
-{
-	
-}
+PmergeMe::~PmergeMe() {}
 
 PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 {
 	if(this != &other)
 	{
-		this->_list = other._list;
+		this->_deque = other._deque;
 		this->_vec = other._vec;
 	}
 	return *this;
@@ -42,17 +36,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 
 // ################ LIFE CYCLE ################
 
-static int F(int n)
-{
-    int sum = 0;
-    for (int k = 1; k <= n; ++k) {
-        double value = (3.0 / 4.0) * k;
-        sum += static_cast<int>(ceil(log2(value)));
-    }
-    return (sum);
-}
-
-PmergeMe::PmergeMe(int ac, char **av) : _compairsons(0)
+PmergeMe::PmergeMe(int ac, char **av)
 {
 	if (ac == 0)
 		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
@@ -69,22 +53,42 @@ PmergeMe::PmergeMe(int ac, char **av) : _compairsons(0)
 			if (*endptr || errno == ERANGE || num < 0 || num > INT_MAX)
 				throw std::runtime_error(str + " :Invalid input!");
 			_vec.push_back(static_cast<int>(num));
-			_list.push_back(static_cast<int>(num));
+			_deque.push_back(static_cast<int>(num));
 		}
 	}
-	sortVec();
-	std::cout << "compairsons made to vec: " << _compairsons << std::endl;
-	_compairsons = 0;
-	sortList();
-	std::cout << "MAX EXPECTED COMPAIRSONS: " << F(_vec.size()) << std::endl;
-}
 
+	std::cout << "Before: ";
+	printVec(_vec);
+	std::clock_t vecStart = std::clock();
+	sortVec();
+    std::clock_t vecEnd = std::clock();
+    double timeVec = double(vecEnd - vecStart) / CLOCKS_PER_SEC * 1000000;
+	std::cout << "After: ";
+	printVec(_vec);
+
+
+	std::cout << "Before: ";
+	printDeque(_deque);
+	std::clock_t dequeStart = std::clock();
+	sortDeque();
+    std::clock_t dequeEnd = std::clock();
+    double timeDeque = double(dequeEnd - dequeStart) / CLOCKS_PER_SEC * 1000000;
+	std::cout << "After: ";
+	printDeque(_deque);
+
+
+    std::cout << "Time to process a range of " << _vec.size() 
+              << " elements with std::vector : " << timeVec << " us" << std::endl;
+
+    std::cout << "Time to process a range of " << _deque.size() 
+              << " elements with std::deque  : " << timeDeque << " us" << std::endl;
+}
 
 // ################ GETTERS ################
 
-std::list<int> PmergeMe::getList()
+std::deque<int> PmergeMe::getDeque()
 {
-	return _list;
+	return _deque;
 }
 
 std::vector<int> PmergeMe::getVec()

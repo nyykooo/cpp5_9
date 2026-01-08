@@ -24,18 +24,17 @@ typedef struct t_pair
 class PmergeMe
 {
 	private:
-	
-	std::vector<int>	_vec; // original vector
-	std::vector<int>	_pendVec; // lesser numbers of the paired vec + remaining if _vec.size() is odd
-	std::vector<int>	_mainVec; // bigger numbers of the paired vec -> will receive the insertion
-	std::vector<s_pair>	_pairedVec; // originial vector paired to merge
-	
-	std::list<int>		_list;
-	std::list<int>		_pendList;
-	std::list<int>		_mainList;
+		std::vector<int>	_vec; // original vector
+		std::vector<int>	_pendVec; // lesser numbers of the paired vec + remaining if _vec.size() is odd
+		std::vector<int>	_mainVec; // bigger numbers of the paired vec -> will receive the insertion
+		std::vector<s_pair>	_pairedVec; // originial vector paired to merge
+		
+		std::deque<int>		_deque;
+		std::deque<int>		_pendDeque;
+		std::deque<int>		_mainDeque;
+		std::deque<s_pair>	_pairedDeque;
 	
 	public:
-		int				_compairsons;
 		// ORTHODOX CANONICAL FORM
 		PmergeMe();
 		PmergeMe(PmergeMe const &other);
@@ -46,11 +45,10 @@ class PmergeMe
 		PmergeMe(int ac, char** av);
 
 		// GETTERS
-		std::list<int>		getList();
+		std::deque<int>		getDeque();
 		std::vector<int>	getVec();
 
 		// VEC METHODS
-		// void pairingVec(void);
 		void				printVec(std::vector<int> vec) const;
 		void				sortVec(void);
 		void				insertVec(void);
@@ -59,64 +57,14 @@ class PmergeMe
 		void				mergeVec(int left, int mid, int right);
 		void				mergeSortVec(int left, int right);
 
-		std::vector<int>	prepareInsertionVec(void);
-		void				binaryInsertVec(int js, int inserted, int g_inserted);
-		int					binarySearch(int to_insert, int low, int high);
-
 		// LIST METHODS
-		// void pairingList(void);
-		void printList(void) const;
-		void sortList(void);
-
-
-		// UTILS
-		// int					getJacobsthalNumber(size_t size);
-
-		// TEMPLATE PAIRING - ACESS TO CLASS MEMBERS
-		template<typename T>
-		void swapBuckets(T bucket_one, T bucket_two, size_t unity_size)
-		{
-			int temp;
-
-			for (size_t i = 0; i < unity_size; ++i)
-			{
-				temp = *(bucket_one);
-				*(bucket_one) = *(bucket_two);
-				*(bucket_two) = temp;
-				++bucket_one;
-				++bucket_two;
-			}
-		}
-
-		template<typename T>
-		int getBucketLastValue(T bucket_begin, size_t unity_size)
-		{
-			std::advance(bucket_begin, unity_size - 1);
-			return (*(bucket_begin));
-		}
-
-		template<typename T>
-		void pairing(T *container, int depth)
-		{
-			size_t unity_size = pow(2, depth - 1); // in first call will be 1
-			size_t n_buckets = container->size() / (unity_size * 2);
-
-			if (n_buckets == 0)
-			{
-				// depth--; // remove last depth reached
-				return ; // end recursive calls
-			}
-
-			for (size_t compare = 0; compare < n_buckets; ++compare)
-			{
-				typename T::iterator bucket1_start = (container->begin() + compare * (unity_size * 2));
-				typename T::iterator bucket2_start = bucket1_start + unity_size;
-				// verify if the last element of a chunk is greater than the last of the next chunk
-				if (getBucketLastValue(bucket1_start, unity_size) > getBucketLastValue(bucket2_start, unity_size))
-					swapBuckets(bucket1_start, bucket2_start, unity_size);
-			}
-			pairing(container, depth + 1);
-		}
+		void				printDeque(std::deque<int> list) const;
+		void				sortDeque(void);
+		void				insertDeque(void);
+		void				initChainsDeque(void);
+		void				initPairsDeque(void);
+		void				mergeDeque(int left, int mid, int right);
+		void				mergeSortDeque(int left, int right);
 
 		// EXCEPTIONS
 		class ParseException : public std::exception
@@ -157,6 +105,18 @@ void getJacobsthalNumber(T *jsConainer, size_t size)
 		else
 			break ;
 	}
+}
+
+template<typename T>
+void binaryInsert(int js, int inserted, T &container, T &pend)
+{
+	int p_index = js - inserted;
+
+	// locate _pend[p_index] and use it to start binary insertion at _main[p_index - 1]
+	int to_insert = pend[p_index];
+	
+	typename T::iterator pos = std::lower_bound(container.begin(), container.end(), to_insert); // lower bound executes a binary search algorithm
+	container.insert(pos, to_insert);
 }
 
 #endif
