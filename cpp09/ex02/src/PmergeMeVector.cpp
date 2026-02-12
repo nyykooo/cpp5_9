@@ -29,7 +29,6 @@ void PmergeMe::insertVec(void)
 	{
 		int amount_to_insert = js[i] - js[i-1];
 		int inserted = 0;
-		// std::cout << "amount to insert: " << amount_to_insert << std::endl;
 		while (amount_to_insert > 0)
 		{
 			binaryInsert(js[i] - 1, inserted, _mainVec, _pendVec);

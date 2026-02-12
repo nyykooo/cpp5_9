@@ -4,7 +4,7 @@ int main(int ac, char **av)
 {
     if (ac != 2)
     {
-        std::cout << "Error: could not open the file." << std::endl;
+        std::cout << BLD_RED << "Error: could not open the file." << RESET << std::endl;
         return 1;
     }
     try 
@@ -14,6 +14,7 @@ int main(int ac, char **av)
     }
     catch (std::exception &e)
     {
-
+        std::cout << BLD_RED << e.what() << RESET << std::endl;
     }
+    return 0;
 }

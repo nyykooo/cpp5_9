@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   headers.hpp                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/07 18:03:44 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/11/20 19:30:36 by ncampbel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef HEADERS_HPP
 # define HEADERS_HPP
 
@@ -19,14 +7,14 @@
 # include <deque>
 # include <exception>
 # include <cstdlib>
-# include <cmath> // include math operations
+# include <cmath>
 # include <fstream>
 # include <sstream>
 # include <climits>
 # include <ctime>   
-# include <cstring>			// includes memset(), memcpy(), etc.
+# include <cstring>
 
-// ### MY LIBRARIES ###
+// ### CUSTOM LIBRARIES ###
 # include "macros.hpp"
 
 // ### CLASSES ###

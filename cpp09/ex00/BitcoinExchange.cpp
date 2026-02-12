@@ -33,7 +33,7 @@ BitcoinExchange::BitcoinExchange(std::string dataBase)
         size_t separator = line.find(',');
 
         if (separator == std::string::npos)
-            continue; // entender o que isso faz (porque pular para a proxima e nao retornar erro??)
+            throw std::runtime_error("Error: Parsing, separator not found");
 
         _db[line.substr(0, separator)] = atof(line.substr(separator + 1).c_str());
     }
@@ -51,7 +51,7 @@ void BitcoinExchange::run(std::string fileName)
     std::string line;
     std::getline(file, line); // skips input file headers -> (date | value)
     if (line != "date | value")
-        throw std::runtime_error("Error: invalid input file."); // para a execucao por isso throw
+        throw std::runtime_error("Error: invalid input file.");
 
     while (getline(file, line))
     {
@@ -87,15 +87,15 @@ void BitcoinExchange::printError(std::string message)
 
 void BitcoinExchange::printSuccess(std::string date, float value)
 {
-    // lower_bound usa o binary search para localizar o elemento
-    // isso garante que se nao houver um match exato o valor sera da data mais proxima (usando a data inferior)
+    // lower_bound uses binary search to locate an element
+    // it guarantees that if there is no exact match the value will be the closest (using the lower date)
     std::map<std::string, float>::iterator it = _db.lower_bound(date);
 
     if (it != _db.end() && it->first == date)
         std::cout << date << " => " << value << " = " << (it->second * value) << std::endl;
     else
     {
-        if (it == _db.begin()) // _db.begin() localiza antes do primeiro elemento de _db
+        if (it == _db.begin())
             std::cout << "Error: bad input => " << date << " (too early)" << std::endl;
         else
         {
@@ -117,14 +117,15 @@ bool BitcoinExchange::parseDate(std::string date)
     int month = std::atoi(date.substr(5, 2).c_str());
     int day = std::atoi(date.substr(8, 2).c_str());
 
-    if (year < 2009) // ano de surgimento do BTC
+    if (year < 2009)
         return false;
     if (month < 1 || month > 12)
         return false;
     if (day < 1 || day > 31)
         return false;
 
-    if (month == 2) // verifica anos bissextos -> multiplos de 4 que nao sao multiplos de 100 MAS inclui os multiplos de 400
+    // leap year calculation: divisible by 4 && not divisible by 100 (except numbers divisible by 400, those are leap)
+    if (month == 2)
     {
         bool isLeap = (year % 4 == 0 && year % 100 != 0) || (year % 400 == 0);
         if (isLeap && day > 29)
@@ -132,11 +133,9 @@ bool BitcoinExchange::parseDate(std::string date)
         if (!isLeap && day > 28)
             return false;
     }
-    else if (month == 4 || month == 6 || month == 9 || month == 11) // verifica se o dia esta dentro dos limites dos meses que tem apenas 30 dias
-    {
+    else if (month == 4 || month == 6 || month == 9 || month == 11)
         if (day > 30)
             return false;
-    }
 
     return true;
 }

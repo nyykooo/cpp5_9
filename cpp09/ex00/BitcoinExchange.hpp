@@ -12,10 +12,11 @@
 
 #include "macros.hpp"
 
+// map was choosen because it stores data in sorted order, allowing for greater efficiency and ease use for this exercise
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, float>	_db; // o map armazena os dados de forma sorted automaticamente, permitindo maior eficiencia e uso facilitado para esse exercicio
+		std::map<std::string, float>	_db;
 
 	public:
 		BitcoinExchange();
