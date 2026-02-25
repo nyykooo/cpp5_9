@@ -26,7 +26,7 @@ PmergeMe &PmergeMe::operator=(PmergeMe const &other)
 
 PmergeMe::PmergeMe(int ac, char **av)
 {
-	if (ac == 0)
+	if (ac == 1)
 		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
 	else
 	{

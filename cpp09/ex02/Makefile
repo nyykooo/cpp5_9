@@ -1,22 +1,10 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/10 19:46:12 by ncampbel          #+#    #+#              #
-#    Updated: 2025/11/11 20:30:02 by ncampbel         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
 NAME= PmergeMe
 
 CXX= c++
 
 CXXFLAGS= -Wall -Wextra -Werror -g -std=c++98
 
-SRC = src/main.cpp src/PmergeMe.cpp src/PmergeMeList.cpp src/PmergeMeVector.cpp
+SRC = src/main.cpp src/PmergeMe.cpp src/PmergeMeDeque.cpp src/PmergeMeVector.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

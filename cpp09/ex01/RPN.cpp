@@ -1,17 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RPN.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ncampbel <ncampbel@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/24 20:33:46 by ncampbel          #+#    #+#             */
-/*   Updated: 2025/03/25 19:18:25 by ncampbel         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "RPN.hpp"
-
 
 // ### ORTHODOX CANONICAL FORM ###
 RPN::RPN() : _input(""), _result(0) {}
@@ -117,7 +104,7 @@ void RPN::performAddition()
 	this->_stack.pop();
 	int b = this->_stack.top();
 	this->_stack.pop();
-	this->_stack.push(a + b);
+	this->_stack.push(b + a);
 }
 
 void RPN::performSubtraction()
@@ -126,7 +113,7 @@ void RPN::performSubtraction()
 	this->_stack.pop();
 	int b = this->_stack.top();
 	this->_stack.pop();
-	this->_stack.push(- a + b);
+	this->_stack.push(b - a);
 }
 
 void RPN::performMultiplication()
@@ -135,7 +122,7 @@ void RPN::performMultiplication()
 	this->_stack.pop();
 	int b = this->_stack.top();
 	this->_stack.pop();
-	this->_stack.push(a * b);
+	this->_stack.push(b * a);
 }
 
 void RPN::performDivision()
@@ -144,7 +131,7 @@ void RPN::performDivision()
 	this->_stack.pop();
 	int b = this->_stack.top();
 	this->_stack.pop();
-	this->_stack.push(a / b);
+	this->_stack.push(b / a);
 }
 
 // ### EXCEPTIONS ###
