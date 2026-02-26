@@ -72,18 +72,6 @@ PmergeMe::PmergeMe(int ac, char **av)
               << " elements with std::deque  : " << timeDeque << " us" << std::endl;
 }
 
-// ################ GETTERS ################
-
-std::deque<int> PmergeMe::getDeque()
-{
-	return _deque;
-}
-
-std::vector<int> PmergeMe::getVec()
-{
-	return _vec;
-}
-
 // ################ EXCEPTIONS ################
 PmergeMe::ParseException::ParseException(const char *msg) : _message(msg) {}
 

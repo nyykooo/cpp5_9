@@ -32,10 +32,6 @@ class PmergeMe
 		// LIFE CYCLE
 		PmergeMe(int ac, char** av);
 
-		// GETTERS
-		std::deque<int>		getDeque();
-		std::vector<int>	getVec();
-
 		// VEC METHODS
 		void				printVec(std::vector<int> vec) const;
 		void				sortVec(void);
