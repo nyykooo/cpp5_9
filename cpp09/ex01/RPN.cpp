@@ -131,6 +131,8 @@ void RPN::performDivision()
 	this->_stack.pop();
 	int b = this->_stack.top();
 	this->_stack.pop();
+	if (a == 0)
+		throw RPN::InvalidDivision();
 	this->_stack.push(b / a);
 }
 
@@ -158,4 +160,9 @@ const char* RPN::InvalidAmountEnd::what() const throw()
 const char* RPN::InvalidNumber::what() const throw()
 {
 	return "Invalid number";
+}
+
+const char* RPN::InvalidDivision::what() const throw()
+{
+	return "Invalid division detected, impossible to divide by 0";
 }
