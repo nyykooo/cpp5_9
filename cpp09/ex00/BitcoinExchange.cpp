@@ -71,8 +71,13 @@ void BitcoinExchange::run(std::string fileName)
             printError("Error: bad input => " + date); 
             continue;
         }
-
-        float value = atof(line.substr(separator + 1).c_str());
+        std::string substr = line.substr(separator + 1);
+        float value = atof(substr.c_str());
+        if (substr != " 0" && value == 0)
+        {
+            printError("Error: bad input => " + date); 
+            continue;
+        }
         if (!parseValue(value))
             continue;
 
