@@ -70,25 +70,30 @@ void PmergeMe::initChainsDeque(void)
 		_mainDeque.push_back(_pairedDeque[i].large);
 		_pendDeque.push_back(_pairedDeque[i].small);
 	}
-	if (_vec.size() % 2 == 1)
-		_pendDeque.push_back(_vec[_vec.size() - 1]);
+	if (_deque.size() % 2 == 1)
+		_pendDeque.push_back(_deque[_deque.size() - 1]);
 }
 
 void PmergeMe::initPairsDeque(void)
 {
-	size_t size = _vec.size() % 2 == 0 ? _vec.size() : _vec.size() - 1;
+	size_t size = _deque.size() % 2 == 0 ? _deque.size() : _deque.size() - 1;
 	for (size_t i = 0; i < size; i += 2)
 	{
 		s_pair newPair;
-		if (_vec[i] > _vec[i+1])
+		if (_deque[i] > _deque[i+1])
 		{
-			newPair.large = _vec[i];
-			newPair.small = _vec[i+1];	
+			newPair.large = _deque[i];
+			newPair.small = _deque[i+1];	
 		}
-		else if (_vec[i] < _vec[i+1])
+		else if (_deque[i] < _deque[i+1])
 		{
-			newPair.large = _vec[i+1];	
-			newPair.small = _vec[i];
+			newPair.large = _deque[i+1];	
+			newPair.small = _deque[i];
+		}
+		else if (_deque[i] == _deque[i+1])
+		{
+			newPair.large = _deque[i+1];	
+			newPair.small = _deque[i];
 		}
 		_pairedDeque.push_back(newPair);
 	}

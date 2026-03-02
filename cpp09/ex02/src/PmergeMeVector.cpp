@@ -90,6 +90,11 @@ void PmergeMe::initPairsVec(void)
 			newPair.large = _vec[i+1];	
 			newPair.small = _vec[i];
 		}
+		else if (_vec[i] == _vec[i+1])
+		{
+			newPair.large = _vec[i+1];	
+			newPair.small = _vec[i];
+		}
 		_pairedVec.push_back(newPair);
 	}
 }

@@ -33,6 +33,8 @@ PmergeMe::PmergeMe(int ac, char **av)
 		std::string			str;
 		std::stringstream	ss;
 		char				*endptr = NULL;
+		if (av[1][0] == '\0')
+			throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
 		ss << av[1];
 		while (ss >> str) {
 			long	num;
