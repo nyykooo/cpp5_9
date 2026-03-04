@@ -32,6 +32,8 @@ class BitcoinExchange
 		bool parseDate(std::string date);
 		bool parseValue(float value);
 
+		bool validateFloat(std::string value);
+
 		void printSuccess(std::string date, float value);
 		void printError(std::string message);
 };

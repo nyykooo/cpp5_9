@@ -71,7 +71,13 @@ void BitcoinExchange::run(std::string fileName)
             printError("Error: bad input => " + date); 
             continue;
         }
+
         std::string substr = line.substr(separator + 1);
+        if (!validateFloat(substr))
+        {
+            printError("Error: bad input => " + date); 
+            continue;
+        }
         float value = atof(substr.c_str());
         if (substr != " 0" && value == 0)
         {
@@ -156,6 +162,25 @@ bool BitcoinExchange::parseValue(float value)
     {
         printError("Error: too large a number.");
         return false;
+    }
+    return true;
+}
+
+bool BitcoinExchange::validateFloat(std::string value)
+{
+    bool hasDecimal = false;
+    if (value.empty())
+        return (false);
+    for (int i = 0; value[i]; i++)
+    {
+        if (!std::isdigit(value[i]) && !std::isspace(value[i]) && value[i] != '.')
+            return false;
+        if (value[i] == '.')
+        {
+            if (hasDecimal)
+                return false;
+            hasDecimal = true;
+        }
     }
     return true;
 }
