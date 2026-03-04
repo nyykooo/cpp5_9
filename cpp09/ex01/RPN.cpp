@@ -73,9 +73,17 @@ void RPN::checkInput(std::string input) const
 
 void RPN::calculateRPN(std::string input)
 {
+	bool white = false;
 	std::string::const_iterator it = input.begin();
 	while (it != input.end())
 	{
+		if (white && !std::isspace(*it))
+				throw RPN::InvalidOperandOrder();
+		if (white)
+		{
+			white = false;
+			continue;
+		}
 		if (isdigit(*it))
 			this->_stack.push((*it - '0'));
 		else if (*it != ' ')
@@ -91,6 +99,8 @@ void RPN::calculateRPN(std::string input)
 			else if (*it == '/')
 				performDivision();
 		}
+		if (!std::isspace(*it) && !white)
+			white = true;
 		it++;
 	}
 	if (this->_stack.size() != 1)
