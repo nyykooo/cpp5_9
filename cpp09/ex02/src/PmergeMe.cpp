@@ -30,13 +30,13 @@ PmergeMe::PmergeMe(int ac, char **av)
 		throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
 	else
 	{
-		std::string			str;
-		std::stringstream	ss;
 		char				*endptr = NULL;
 		if (av[1][0] == '\0')
 			throw PmergeMe::ParseException("Error >> Invalid arguments!\nUsage: ./PmergeMe <list of numbers unsorted>");
-		ss << av[1];
-		while (ss >> str) {
+
+		for (int i = 1; i < ac; ++i)
+		{
+			std::string str = av[i];
 			long	num;
 			errno = 0;
 			num = std::strtol(str.c_str(), &endptr, 10);
